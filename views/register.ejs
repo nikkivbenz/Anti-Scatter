@@ -1,3 +1,8 @@
+<!--
+  This is the registration page. It displays a form with an email, username, and password field.
+  If the user enters an email or username that already exists, an error message is displayed.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +18,7 @@
 </head>
 <body>
   <h1>Sign Up</h1>
+  <!-- Adding a registration form with email, username, and password-->
   <form method="POST" action="/register">
     <label for="email">Email Address:</label>
     <input type="text" id="email" name="email" required><br><br>
@@ -20,7 +26,7 @@
     <input type="text" id="username" name="username" required><br><br>
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required><br><br>
-    <!-- Display error message if it exists -->
+    <!-- Display error message for trying to use an existing email or username -->
     <% if (error) { %>
       <div class="error-message"><%= error %></div>
     <% } %>
