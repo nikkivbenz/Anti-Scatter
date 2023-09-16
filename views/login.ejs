@@ -1,0 +1,37 @@
+<!--
+  This is the login page. It displays a form with an email and password field.
+  If the user enters an incorrect email or password, an error message is displayed.
+  If the user doesn't have an account, they can click on the "Sign Up" link to go to the registration page.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    /* Style for the error message */
+    .error-message {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Login</h1>
+  
+  <form method="POST" action="/login">
+    <label for="email">Email Address:</label>
+    <input type="text" id="email" name="email" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <!-- Display error message if it exists -->
+    <% if (error) { %>
+      <div class="error-message"><%= error %></div>
+    <% } %>
+    <button type="submit">Login</button>
+  </form>
+  
+  <p>Don't have an account? <a href="/register">Sign Up</a></p>
+</body>
+</html>
