@@ -1,3 +1,11 @@
+/*
+    This is the main file for the application. It handles the routes and the logic for the application.
+    It uses passport.js for authentication and bcrypt for password hashing.
+    It uses the model/User.js file to create and authenticate users.
+    It uses mongoose to access the database (MongoDB Atlas).
+*/
+
+//Require the dev-dependencies
 var express = require("express"),
     mongoose = require("mongoose"),
     passport = require("passport"),
@@ -6,12 +14,17 @@ var express = require("express"),
     passportLocalMongoose = require("passport-local-mongoose"),
     bcrypt = require('bcrypt')
 
+//Require the config/dbconfig.js file
 const connectDB = require('./config/dbconfig');
+//Require the model/User.js file
 const User = require("./model/User");
 
+//Connect to the database
 connectDB();
+//Express app setup
 const app = express();
-  
+
+//View engine setup to use ejs
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(require("express-session")({
@@ -19,10 +32,12 @@ app.use(require("express-session")({
     resave: false,
     saveUninitialized: false
 }));
-  
+
+//Passport setup
 app.use(passport.initialize());
 app.use(passport.session());
-  
+
+//Passport local strategy setup
 passport.use(new LocalStrategy(User.UserModel.authenticate()));
 passport.serializeUser(User.UserModel.serializeUser());
 passport.deserializeUser(User.UserModel.deserializeUser());
@@ -100,11 +115,15 @@ app.get("/logout", function (req, res) {
     res.redirect('/');
 });
 
+//Middleware to check if user is logged in
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();
     res.redirect("/login", {error: null});
 }
-  
+
+//=====================
+
+//App listening on port 3000
 var port = process.env.PORT || 3000;
 app.listen(port, function () {
     console.log("Server Has Started!");
