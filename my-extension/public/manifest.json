@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Anti-Scatter",
+  "name": "My Extension",
   "version": "1.0.0",
-  "description": "missing",
+  "description": "A simple Chrome extension with React.",
   "icons": {
     "16": "logo192.png",
     "48": "logo192.png",
