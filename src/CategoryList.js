@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Tree } from "antd";
-import myData from "./sites2.json";
+import myData from "./sites.json";
 
 console.log(myData["content"]);
 
@@ -8,7 +8,7 @@ let stuff = JSON.parse(JSON.stringify(myData["content"]));
 console.log(stuff);
 console.log(stuff === myData["content"]);
 const treeData = stuff;
-const App = () => {
+const CategoryList = () => {
   const [expandedKeys, setExpandedKeys] = useState([]);
   const [checkedKeys, setCheckedKeys] = useState([]);
   const [selectedKeys, setSelectedKeys] = useState([]);
@@ -43,4 +43,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default CategoryList;

@@ -1,10 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "Anti-scatter",
+  "name": "Current Website URL Logger",
   "version": "1.0",
-  "description": "Anti-scatter focus app",
+  "permissions": ["activeTab", "tabs", "storage", "scripting"],
   "action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["tabs", "activeTab"]
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["content.js"]
+    }
+  ]
 }
