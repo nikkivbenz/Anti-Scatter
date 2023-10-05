@@ -1,20 +1,14 @@
 // popup.js
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("logButton").addEventListener("click", blackout);
-});
-
+var currentURL = window.location.href;
 function logCurrentURL() {
-  var currentURL = window.location.href;
-  console.log("Current URL:", currentURL);
+  console.log("Current URL (CONTENT SCRIPT):", currentURL);
 }
 
-function blackout() {
-  var currentURL = window.location.href;
-  console.log("Current URL:", currentURL);
+if (currentURL === "www.google.com") {
   var body = document.getElementsByTagName("body")[0];
-  body.style.backgroundColor = "black";
+  body.style.display = "none";
 }
 
 // Inject the logCurrentURL function into the webpage
 logCurrentURL();
-blackout();
+// blackout();
