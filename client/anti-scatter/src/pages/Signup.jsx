@@ -27,7 +27,7 @@ const Signup = () => {
 
     const handleSuccess = (msg) =>
         toast.success(msg, {
-            position: "bottom-right",
+            position: "bottom-left",
         });
 
     const handleSubmit = async (e) => {
@@ -41,6 +41,7 @@ const Signup = () => {
                 { withCredentials: true }
             );
             const { success, message } = data;
+
             if (success) {
                 handleSuccess(message);
                 setTimeout(() => {
