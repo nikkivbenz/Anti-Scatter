@@ -1,7 +1,4 @@
 // popup.js
-document.addEventListener("DOMContentLoaded", function () {
-  console.log("fart.");
-});
 
 document.getElementById("logButton").addEventListener("click", function () {
   // Send a message to the content script to log the current URL
@@ -29,6 +26,9 @@ document.getElementById("unblock").addEventListener("click", function () {
 });
 
 function logCurrentURL() {
+  // write into json file
+
+  const fs = require("fs");
   var currentURL = window.location.href;
   var url = new URL(currentURL);
 
@@ -43,14 +43,16 @@ function logCurrentURL() {
 
   // Find the last occurrence of ".com" and keep everything before it
   var lastIndex = domain.lastIndexOf(".com");
+
   if (lastIndex !== -1) {
     domain = domain.substring(0, lastIndex) + ".*";
   }
 
   // Create a JSON object to store the domain with the wildcards
-  var json = {
-    domain: domain,
-  };
+
+  // Write the JSON object to a file
+  var json = JSON.stringify(domain);
+  fs.writeFile("test.json", json, "utf8", callback);
 
   // Log the JSON object
   console.log("Domain JSON with Wildcards:", json);
