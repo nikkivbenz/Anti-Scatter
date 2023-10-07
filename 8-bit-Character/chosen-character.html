@@ -1,0 +1,50 @@
+<!-- chosen-character.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chosen Character</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id="social-page">
+        <div id="character-level">
+            <header>
+                <h1>Chosen Character</h1>
+            </header>
+        </div>
+        <div id="chosen-character-info">
+            <!-- JavaScript will populate this section with the chosen character and level -->
+        </div>
+        <button id="return-button">Return to Character Page</button>
+    </div>
+
+    <script>
+        // Retrieve the chosen character number and level from sessionStorage
+        const chosenCharacterNumber = sessionStorage.getItem('chosenCharacter');
+        const chosenCharacterLevel = sessionStorage.getItem('chosenCharacterLevel');
+
+        // Use this information to display the chosen character and level
+        const chosenCharacterInfo = document.getElementById('chosen-character-info');
+        if (chosenCharacterNumber !== null) {
+            chosenCharacterInfo.innerHTML = `
+                <p>You have chosen the following character:</p>
+                <img class="chosen-character-image" src="characters/character${chosenCharacterNumber}.png" alt="Character ${chosenCharacterNumber}">
+                <p>Earned at Level: ${chosenCharacterLevel}</p>
+                <p> </p>
+            `;
+        }
+        else {
+            chosenCharacterInfo.innerHTML = '<p>No character chosen.</p>';
+        }
+
+        // Add an event listener to the "Return to Page" button
+        const returnButton = document.getElementById('return-button');
+        returnButton.addEventListener('click', () => {
+            // Redirect back to the character page
+            window.location.href = 'character.html';
+        });
+    </script>
+</body>
+</html>
