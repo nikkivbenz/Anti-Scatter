@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [blockedWords, setBlockedWords] = useState([]);
+  const [newWord, setNewWord] = useState('');
+
+  const addBlockedWord = () => {
+    if (newWord.trim() !== '') {
+      setBlockedWords([...blockedWords, newWord.trim()]);
+      setNewWord('');
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Blocked Words</h1>
+      <div className="blocked-words">
+        <ul>
+          {blockedWords.map((word, index) => (
+            <li key={index}>{word}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="add-word">
+        <input
+          type="text"
+          placeholder="Add a blocked word..."
+          value={newWord}
+          onChange={(e) => setNewWord(e.target.value)}
+        />
+        <button onClick={addBlockedWord}>Add</button>
+      </div>
     </div>
   );
 }
