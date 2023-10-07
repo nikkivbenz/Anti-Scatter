@@ -1,10 +1,23 @@
 {
-  "version": "1.0.0",
   "manifest_version": 3,
-  "name": "React Chrome Extension",
-  "description": "This is a Chrome extension built with React and TypeScript",
+  "name": "Your Extension Name",
+  "version": "1.0",
+  "description": "Description of your extension",
+  "permissions": [],
+
   "action": {
-      "default_popup": "client/anti-scatter/src/index.js",
-      "default_title": "React Chrome Extension"
+    "default_popup": "./popup/popup.html"
+  },
+  "icons": {
+    "48": "icon.png",
+    "96": "icon.png"
+  },
+  
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [],
+  "browser_action": {
+    "default_popup": "./popup/popup.html"
   }
 }
