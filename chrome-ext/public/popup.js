@@ -1,3 +1,8 @@
+/*
+    The popup script is the extension's UI; it is displayed in a browser popup.
+    It works of off index.html and contains listeners for UI elements.
+*/
+
 document.addEventListener('DOMContentLoaded', function () {
     const blockedWebsitesList = document.getElementById('blocked-websites');
     const websiteInput = document.getElementById('website-url');
