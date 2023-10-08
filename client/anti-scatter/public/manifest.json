@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Anti-Scatter",
+  "version": "1.0",
+  "description": "Description of your extension",
+  "permissions": [],
+
+  "action": {
+    "default_popup": "./index.html",
+    "default_title": "Open the popup!"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": []
+}
