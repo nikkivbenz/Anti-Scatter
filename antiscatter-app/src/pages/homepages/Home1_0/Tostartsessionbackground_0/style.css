@@ -1,0 +1,11 @@
+.Tostartsessionbackground_1_50 {
+  transform: translate(27px, 542px) rotate(0deg) scale(1, 1);
+  transform-origin: 1px 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  min-height: 58px;
+  background-color: transparent;
+  border: none;
+}

@@ -1,0 +1,11 @@
+.QuoteBox_1_27 {
+  transform: translate(37px, 378px) rotate(0deg) scale(1, 1);
+  transform-origin: 1px 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 301px;
+  min-height: 139px;
+  background-color: transparent;
+  border: none;
+}

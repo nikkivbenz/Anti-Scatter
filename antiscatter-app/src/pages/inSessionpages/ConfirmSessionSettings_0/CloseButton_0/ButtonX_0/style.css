@@ -1,0 +1,11 @@
+.ButtonX_1_6 {
+  transform: translate(16px, 15px) rotate(0deg) scale(1, 1);
+  transform-origin: 1px 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 33px;
+  min-height: 33px;
+  background-color: rgba(255, 255, 255, 1);
+  border: none;
+}

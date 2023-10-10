@@ -1,0 +1,44 @@
+.Group_1_16 {
+  transform: translate(0px, 0.5px) rotate(0deg) scale(1, 1);
+  transform-origin: 1px 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 149px;
+  min-height: 100px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0px 0px 0px 0px;
+}
+
+.TEXT_1_17 {
+  transform: translate(0px, 0px) rotate(0deg) scale(1, 1);
+  transform-origin: 1px 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(255, 255, 255, 1);
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 40px;
+  text-align: left;
+  vertical-align: top;
+  letter-spacing: 0px;
+  line-height: 48.409088134765625px;
+}
+
+.TEXT_1_18 {
+  transform: translate(0px, 52px) rotate(0deg) scale(1, 1);
+  transform-origin: 1px 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(255, 255, 255, 1);
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 40px;
+  text-align: left;
+  vertical-align: top;
+  letter-spacing: 0px;
+  line-height: 48.409088134765625px;
+}

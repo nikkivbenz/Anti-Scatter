@@ -1,0 +1,62 @@
+/* CSS class definition for ".CloseSession_1_9" */
+
+.CloseSession_1_9 {
+  /* Apply a transformation to this element */
+  transform: translate(150px, 397.5px) rotate(0deg) scale(1, 1);
+  transform-origin: 1px 1px; /* Set the transformation origin */
+  
+  /* Set the element's positioning */
+  position: absolute;
+  top: 0; /* Position from the top of the parent container */
+  left: 0; /* Position from the left of the parent container */
+  
+  /* Define the element's width and minimum height */
+  width: 74px;
+  min-height: 15px;
+  
+  /* Set the background color of the element to be transparent */
+  background-color: transparent;
+  
+  /* Remove any borders from the element */
+  border: none;
+  
+  /* Define the border radius for rounded corners (none in this case) */
+  border-radius: 0px 0px 0px 0px;
+}
+
+/* CSS class definition for ".TEXT_1_10" */
+
+.TEXT_1_10 {
+  /* Apply a transformation to this text element */
+  transform: translate(0px, 0px) rotate(0deg) scale(1, 1);
+  transform-origin: 1px 1px; /* Set the transformation origin */
+  
+  /* Set the element's positioning */
+  position: absolute;
+  top: 0; /* Position from the top of the parent container */
+  left: 0; /* Position from the left of the parent container */
+  
+  /* Define the text color using RGBA values (a shade of gray) */
+  color: rgba(193.00000369548798, 193.00000369548798, 193.00000369548798, 1);
+  
+  /* Define the font family for the text */
+  font-family: Inter;
+  
+  /* Set the font weight to 400 (normal) */
+  font-weight: 400;
+  
+  /* Define the font size in pixels */
+  font-size: 12px;
+  
+  /* Set the text alignment to left */
+  text-align: left;
+  
+  /* Set the vertical alignment to top */
+  vertical-align: top;
+  
+  /* Define the letter spacing for the text */
+  letter-spacing: 0px;
+  
+  /* Define the line height for the text */
+  line-height: 14.522727012634277px;
+}

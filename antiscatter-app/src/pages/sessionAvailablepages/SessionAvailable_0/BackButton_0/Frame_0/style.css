@@ -1,0 +1,14 @@
+.Frame_1_60 {
+  z-index: 1;
+  width: min(36px, 100%);
+  min-height: 36px;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  flex-wrap: wrap;
+  gap: 10px;
+}

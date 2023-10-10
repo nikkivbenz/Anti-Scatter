@@ -1,0 +1,11 @@
+.CloseButton_1_4 {
+  transform: translate(155px, 324px) rotate(0deg) scale(1, 1);
+  transform-origin: 1px 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 65px;
+  min-height: 63px;
+  background-color: transparent;
+  border: none;
+}

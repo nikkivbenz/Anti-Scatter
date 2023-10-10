@@ -1,0 +1,28 @@
+.Quote_1_29 {
+  transform: translate(104px, 391px) rotate(0deg) scale(1, 1);
+  transform-origin: 1px 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 168px;
+  min-height: 24px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0px 0px 0px 0px;
+}
+
+.TEXT_1_30 {
+  transform: translate(0px, 0px) rotate(0deg) scale(1, 1);
+  transform-origin: 1px 1px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: rgba(255, 255, 255, 1);
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 20px;
+  text-align: left;
+  vertical-align: top;
+  letter-spacing: 0px;
+  line-height: 24.204544067382812px;
+}
