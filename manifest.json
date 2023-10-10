@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Current Website URL Logger",
+  "name": "Quick website blocker",
   "version": "1.0",
   "permissions": ["activeTab", "tabs", "storage", "scripting"],
   "action": {

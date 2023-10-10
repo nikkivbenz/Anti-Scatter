@@ -60,21 +60,35 @@ function logCurrentURL() {
   // You can now use the 'json' object as needed.
 }
 function blackout() {
-  var body = document.getElementsByTagName("body")[0];
-  body.style.display = "none";
+  // var body = document.getElementsByTagName("body")[0];
+  // body.style.display = "none";
   // add a h1 that says "blocked"
-  var heading = document.createElement("h1");
+  Array.from(document.body.children).forEach((child) => {
+    child.style.display = "none";
+  });
+
+  var cover = document.createElement("div");
+  cover.id = "cover";
 
   // Set the text content of the <h1> element to "blocked"
-  heading.textContent = "Blocked";
-  heading.style.display = "initial !important";
 
-  // Append the <h1> element to the HTML body
+  cover.style.position = "absolute";
+  cover.style.zIndex = "999999";
+  cover.style.width = "100%";
+  cover.style.height = "100%";
+  cover.style.backgroundColor = "red";
 
-  document.body.appendChild(heading);
+  // Create a <p> element
+  var message = document.createElement("h1");
+  message.textContent = "This website has been blocked.";
+
+  // Append the <p> element to the <div> element
+  cover.appendChild(message);
+
+  // Append the <div> element to the HTML body
+  document.body.appendChild(cover);
 }
 
 function unBlock() {
-  var body = document.getElementsByTagName("body")[0];
-  body.style.display = "initial";
+  location.reload();
 }
