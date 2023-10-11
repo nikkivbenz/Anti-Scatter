@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 node_modules
+=======
+# misc
+.env
+>>>>>>> origin/main
