@@ -5,14 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Anti-scatter popup</title>
     <link rel="stylesheet" href="popup.css" />
+    <link rel="manifest" href="manifest.json" />
   </head>
   <body>
+    <script type="module" src="popup.js"></script>
+    <!-- <script src="background.js"></script> -->
     <h1>Quick block</h1>
     <div class="button-container">
       <button id="unblock">Unblock</button>
-      <button id="logButton">Block</button>
+      <button id="block">Block</button>
+      <button id="clear">Clear all</button>
     </div>
-
-    <script type="module" src="popup.js"></script>
+    <div class="site-container">
+      <p>Blocked sites:</p>
+      <ul id="blocked-sites"></ul>
+    </div>
   </body>
 </html>

@@ -1,94 +1,139 @@
 // popup.js
 
-document.getElementById("logButton").addEventListener("click", function () {
-  // Send a message to the content script to log the current URL
+document.getElementById("block").addEventListener("click", function () {
+  // query chrome for the active tab in the current window
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     var activeTab = tabs[0];
-    chrome.scripting.executeScript({
-      target: { tabId: activeTab.id },
-      function: logCurrentURL,
-    });
-    chrome.scripting.executeScript({
-      target: { tabId: activeTab.id },
-      function: blackout,
-    });
+
+    chrome.scripting;
+
+    chrome.scripting
+      .executeScript({
+        target: { tabId: activeTab.id },
+        function: block,
+      })
+      .then(() => {
+        chrome.tabs.reload();
+      })
+      .catch((err) => {});
   });
 });
 
 document.getElementById("unblock").addEventListener("click", function () {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     var activeTab = tabs[0];
-    chrome.scripting.executeScript({
-      target: { tabId: activeTab.id },
-      function: unBlock,
-    });
+    chrome.scripting
+      .executeScript({
+        target: { tabId: activeTab.id },
+        function: unBlock,
+      })
+      .then(() => {
+        chrome.tabs.reload();
+      })
+      .catch((err) => {});
   });
 });
 
-function logCurrentURL() {
-  // write into json file
+document.getElementById("clear").addEventListener("click", function () {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    var activeTab = tabs[0];
+    chrome.scripting
+      .executeScript({
+        target: { tabId: activeTab.id },
+        function: clearLocalStorage,
+      })
+      .then(() => {
+        chrome.tabs.reload();
+      })
+      .catch((err) => {});
+  });
+});
 
-  const fs = require("fs");
+// Add an event listener to the chrome.storage.onChanged event
+chrome.storage.onChanged.addListener(function (changes, namespace) {
+  if (changes.sites) {
+    updateBlockedSites();
+  }
+});
+
+// get ul element by id blocked sites, and when a site is added to local storage, add a li element with the site name to the ul element
+function updateBlockedSites() {
+  chrome.storage.local.get(["sites"], function (result) {
+    var sites = result.sites || [];
+
+    var ul = document.getElementById("blocked-sites");
+    ul.innerHTML = "";
+
+    sites.forEach(function (site) {
+      var li = document.createElement("li");
+      li.textContent = site;
+      ul.appendChild(li);
+    });
+  });
+}
+
+// Call the function once to populate the list on page load
+
+function block() {
   var currentURL = window.location.href;
   var url = new URL(currentURL);
 
   // Extract the domain from the URL
   var domain = url.hostname;
 
-  // Remove "www." if present
-  // domain = domain.replace(/^www\./, "*.");
+  // Retrieve the current value of "sites" from local storage
+  chrome.storage.local.get(["sites"], function (result) {
+    var sites = result.sites || [];
 
-  // Remove "http://", "https://", or "://" if present
-  domain = domain.replace(/^(https?:\/\/)?(www\.)?/, "*.");
+    //if chrome storage has a sites array and the domain is already in the array, return
+    if (sites.includes(domain)) {
+      console.log("Domain already exists in storage.local:", domain);
+      return;
+    }
 
-  // Find the last occurrence of ".com" and keep everything before it
-  var lastIndex = domain.lastIndexOf(".com");
+    // Add the new domain to the existing sites array
+    sites.push(domain);
 
-  if (lastIndex !== -1) {
-    domain = domain.substring(0, lastIndex) + ".*";
-  }
-
-  // Create a JSON object to store the domain with the wildcards
-
-  // Write the JSON object to a file
-  var json = JSON.stringify(domain);
-  fs.writeFile("test.json", json, "utf8", callback);
-
-  // Log the JSON object
-  console.log("Domain JSON with Wildcards:", json);
-
-  // You can now use the 'json' object as needed.
-}
-function blackout() {
-  // var body = document.getElementsByTagName("body")[0];
-  // body.style.display = "none";
-  // add a h1 that says "blocked"
-  Array.from(document.body.children).forEach((child) => {
-    child.style.display = "none";
+    // Set the updated value of "sites" back to local storage
+    chrome.storage.local.set({ sites: sites }, function () {
+      console.log("Domain added to storage.local:", domain);
+    });
   });
-
-  var cover = document.createElement("div");
-  cover.id = "cover";
-
-  // Set the text content of the <h1> element to "blocked"
-
-  cover.style.position = "absolute";
-  cover.style.zIndex = "999999";
-  cover.style.width = "100%";
-  cover.style.height = "100%";
-  cover.style.backgroundColor = "red";
-
-  // Create a <p> element
-  var message = document.createElement("h1");
-  message.textContent = "This website has been blocked.";
-
-  // Append the <p> element to the <div> element
-  cover.appendChild(message);
-
-  // Append the <div> element to the HTML body
-  document.body.appendChild(cover);
 }
 
 function unBlock() {
-  location.reload();
+  var currentURL = window.location.href;
+  var url = new URL(currentURL);
+
+  // Extract the domain from the URL
+  var domain = url.hostname;
+
+  // Retrieve the current value of "sites" from local storage
+  chrome.storage.local.get(["sites"], function (result) {
+    var sites = result.sites || [];
+
+    // If the domain is not in the sites array, return
+    if (!sites.includes(domain)) {
+      console.log("Domain not found in storage.local:", domain);
+      return;
+    }
+
+    // Remove the domain from the sites array
+    sites = sites.filter(function (site) {
+      return site !== domain;
+    });
+
+    // Set the updated value of "sites" back to local storage
+    chrome.storage.local.set({ sites: sites }, function () {
+      console.log("Domain removed from storage.local:", domain);
+    });
+  });
 }
+
+function clearLocalStorage() {
+  chrome.storage.local.clear(function () {
+    console.log("Local storage cleared.");
+  });
+}
+
+updateBlockedSites();
