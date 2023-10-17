@@ -3,6 +3,7 @@ import {Route, Routes} from 'react-router-dom';
 import {Login, Signup} from "./pages";
 import Home from "./pages/Home";
 
+// This app is the main component of the application. It is responsible for rendering the routes of the application.
 function App() {
   return (
     <div className="App">

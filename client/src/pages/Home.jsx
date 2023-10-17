@@ -4,6 +4,10 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
+/*
+    This is the home page of the application. It is a protected route, which means that the user can only access it if he/she is logged in.
+*/
+
 const Home = () => {
     const navigate = useNavigate();
     const [cookies, removeCookie] = useCookies([]);
