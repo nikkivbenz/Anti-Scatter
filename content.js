@@ -1,9 +1,4 @@
-// popup.js
-var currentURL = window.location.href;
-var url = new URL(currentURL);
-
-// Extract the domain from the URL
-var domain = url.hostname;
+// content.js
 
 function blackout() {
   Array.from(document.body.children).forEach((child) => {
@@ -36,6 +31,10 @@ function blackout() {
   // Append the <div> element to the HTML body
   document.body.appendChild(cover);
 }
+
+var currentURL = window.location.href;
+var url = new URL(currentURL);
+var domain = url.hostname;
 
 // if url is in chrome.local sites, execute blackout
 chrome.storage.local.get(["sites"], function (result) {

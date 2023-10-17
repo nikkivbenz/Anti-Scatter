@@ -1,11 +1,11 @@
 // popup.js
 
+// Event listener for every button
+// Each button event will reload the page to reflect the changes
+
 document.getElementById("block").addEventListener("click", function () {
-  // query chrome for the active tab in the current window
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     var activeTab = tabs[0];
-
-    chrome.scripting;
 
     chrome.scripting
       .executeScript({
@@ -15,7 +15,9 @@ document.getElementById("block").addEventListener("click", function () {
       .then(() => {
         chrome.tabs.reload();
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   });
 });
 
@@ -30,7 +32,9 @@ document.getElementById("unblock").addEventListener("click", function () {
       .then(() => {
         chrome.tabs.reload();
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   });
 });
 
@@ -45,11 +49,13 @@ document.getElementById("clear").addEventListener("click", function () {
       .then(() => {
         chrome.tabs.reload();
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   });
 });
 
-// Add an event listener to the chrome.storage.onChanged event
+// Add an event listener to the chrome.storage.onChanged event. Updates list on extension.
 chrome.storage.onChanged.addListener(function (changes, namespace) {
   if (changes.sites) {
     updateBlockedSites();
@@ -72,13 +78,12 @@ function updateBlockedSites() {
   });
 }
 
-// Call the function once to populate the list on page load
-
 function block() {
+  // get url from window
   var currentURL = window.location.href;
+  // convert url to a URL object
   var url = new URL(currentURL);
-
-  // Extract the domain from the URL
+  // Extract the domain from the URL hostname property
   var domain = url.hostname;
 
   // Retrieve the current value of "sites" from local storage
@@ -102,10 +107,11 @@ function block() {
 }
 
 function unBlock() {
+  // get url from window
   var currentURL = window.location.href;
+  // convert url to a URL object
   var url = new URL(currentURL);
-
-  // Extract the domain from the URL
+  // Extract the domain from the URL hostname property
   var domain = url.hostname;
 
   // Retrieve the current value of "sites" from local storage
@@ -136,4 +142,5 @@ function clearLocalStorage() {
   });
 }
 
+// Call the function once to populate the list on page load
 updateBlockedSites();
