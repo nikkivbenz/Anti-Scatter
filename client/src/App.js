@@ -1,7 +1,8 @@
 import './App.css';
 import {Route, Routes} from 'react-router-dom';
-import {Login, Signup} from "./pages";
+import {Login, Signup, DashboardHome} from "./pages";
 import Home from "./pages/Home";
+
 
 // This app is the main component of the application. It is responsible for rendering the routes of the application.
 function App() {
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="dashboardhome" element={<DashboardHome />} /> 
       </Routes>
     </div>
   );
