@@ -1,0 +1,39 @@
+//Katherine Hernandez 
+import React, { useState } from 'react';
+import axios from 'axios'; // Import Axios for making API requests
+import Select from 'react-select'; // Import the Select component from the react-select library
+
+const LanguageSelector = () => {
+  // State to manage the selected language
+  const [selectedLanguage, setSelectedLanguage] = useState(null);
+
+  // Define a list of language options (you can add more languages)
+  const languageOptions = [
+    { value: 'en', label: 'English' }, // 'value' is the language code, and 'label' is the display name
+    { value: 'es', label: 'Spanish' },
+    // Add more language options as needed
+  ];
+
+  // Function to handle language change
+  const handleLanguageChange = (selectedOption) => {
+    setSelectedLanguage(selectedOption); // Update the selected language
+
+    // Make an API request to Google Translate here to change the site language
+    // You'll need to use the Google Translate API key you obtained earlier.
+    // You can call the translation API here.
+  };
+
+  return (
+    <div>
+      {/* Dropdown for language selection */}
+      <Select
+        value={selectedLanguage} // Current selected language
+        onChange={handleLanguageChange} // Callback function when a language is selected
+        options={languageOptions} // List of language options
+      />
+      {/* You can render language-specific content below this */}
+    </div>
+  );
+};
+
+export default LanguageSelector;
