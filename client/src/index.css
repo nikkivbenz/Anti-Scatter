@@ -113,7 +113,16 @@ span a {
   transition: ease-in 0.3s;
   border: none;
 }
-
+.quote-container button {
+  background-color: rgb(27, 73, 83);
+  color: #fff;
+  cursor: pointer;
+  padding: .25rem .5rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  transition: ease-in 0.3s;
+  border: none;
+}
 .home_page button:hover {
   background-color: rgba(0, 212, 255, 1);
 }
