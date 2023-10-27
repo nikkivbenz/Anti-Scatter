@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+
 /*
     This is the home page of the application. It is a protected route, which means that the user can only access it if he/she is logged in.
 */
@@ -13,6 +14,22 @@ const Home = () => {
     const [username, setUsername] = useState("");
     const [quotes, setQuotes] = useState([]);
     const [quote, setQuote] = useState("");
+
+    const fetchQuote = async () => {
+        try {
+          const response = await fetch('https://type.fit/api/quotes');
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          const data = await response.json();
+          if (data && data.length > 0) {
+            const randomIndex = Math.floor(Math.random() * data.length);
+            setQuote(data[randomIndex]);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      };
 
     useEffect(() => {
         const verifyCookie = async () => {
@@ -51,7 +68,15 @@ const Home = () => {
             setQuote(data[Math.floor(Math.random() * data.length)]);
           });
       }, []);
+      
+      useEffect(() => {
+        fetchQuote(); // Initial fetch
+        const interval = setInterval(fetchQuote, 24 * 60 * 60 * 1000); // Fetch a new quote every 24 hours
     
+        return () => {
+          clearInterval(interval); // Clear the interval on component unmount
+        };
+      }, []);
       return (
         <>
           <div className="home_page">
