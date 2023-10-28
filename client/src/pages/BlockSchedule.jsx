@@ -10,12 +10,23 @@ const BlockSchedule = () => {
     const [userId, setUserId] = useState("");
     const [schedules, setSchedules] = useState([]);
     const [newSchedule, setNewSchedule] = useState({
+        userId: '',
         website: '',
         days: [],
         startTime: '',
         endTime: '',
     });
     const [isCreatingSchedule, setIsCreatingSchedule] = useState(false);
+
+    const fetchSchedules = async () => {
+        try {
+            const response = await axios.get(`http://localhost:4000/blockschedule/${userId}`);
+            const schedulesArray = Object.values(response.data.blockSchedule);
+            setSchedules(schedulesArray);
+        } catch (error) {
+            console.log('Error fetching schedules:', error);
+        }
+    };
 
     useEffect(() => {
         const verifyCookie = async () => {
@@ -39,37 +50,25 @@ const BlockSchedule = () => {
         verifyCookie();
 
         if (userId) {
-            console.log(userId)
-            const fetchSchedules = async () => {
-                try {
-                    const response = await axios.get(`http://localhost:4000/blockschedule/${userId}`);
-                    const schedulesArray = Object.values(response.data.blockSchedule);
-                    setSchedules(schedulesArray);
-                    console.log(schedulesArray);
-                } catch (error) {
-                    console.log('Error fetching schedules:', error);
-                }
-            };
-
             fetchSchedules();
         }
-    }, [cookies, navigate, removeCookie]); // Trigger the fetch when the component mounts
+    }, [cookies, navigate, removeCookie, userId, fetchSchedules]); // Trigger the fetch when the component mounts
+
+    
 
     const saveSchedule = async (newSchedule) => {
         try {
-            setNewSchedule({
+            const schedule = {
                 ...newSchedule,
-                userId: userId
-            });
+                userId: userId,
+            };
 
             const { data } = await axios.post(
                 "http://localhost:4000/blockschedule",
-                {
-                    ...newSchedule,
-                },
+                schedule,
                 { withCredentials: true }
             );
-            console.log(data);
+
             const { success, message } = data;
             if (success) {
                 toast.success(message, {
@@ -91,9 +90,10 @@ const BlockSchedule = () => {
 
     const handleSaveSchedule = () => {
         // Send the new schedule data to the server and update the 'schedules' state
-        // Example: createSchedule(newSchedule).then(updatedSchedules => setSchedules(updatedSchedules));
-        saveSchedule(newSchedule).then(updatedSchedules => setSchedules(updatedSchedules));
-        
+        saveSchedule(newSchedule);
+
+        fetchSchedules();
+
         // After saving, reset the 'newSchedule' state and exit the creation mode
         setNewSchedule({ userId: '', website: '', days: [], startTime: '', endTime: ''});
         setIsCreatingSchedule(false);
@@ -110,7 +110,29 @@ const BlockSchedule = () => {
         }
     };
 
+    const handleDeleteSchedule = async (scheduleId) => {
+        try {
+            const { data } = await axios.delete(`http://localhost:4000/blockschedule/${scheduleId}`);
+            const { success, message } = data;
+            if (success) {
+                toast.success(message, {
+                    position: "bottom-left",
+                });
+
+                // After deleting the schedule, refetch the schedules
+                fetchSchedules();
+            } else {
+                toast.error(message, {
+                    position: "bottom-left",
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
+        <>
         <div>
             <h1>Schedule</h1>
             
@@ -130,7 +152,10 @@ const BlockSchedule = () => {
                             <tr key={schedule._id}>
                                 <td>{schedule.website}</td>
                                 <td>{schedule.days.join(", ")}</td>
-                                <td>{schedule.startTime} - {schedule.endTime}</td>
+                                <td>{schedule.timeFrame.startTime} - {schedule.timeFrame.endTime}</td>
+                                <td>
+                                    <button onClick={() => handleDeleteSchedule(schedule._id)}>Delete</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
@@ -150,47 +175,47 @@ const BlockSchedule = () => {
                         <label>
                             <input
                                 type="checkbox"
-                                value="M"
-                                checked={newSchedule.days.includes("M")}
+                                value="MON"
+                                checked={newSchedule.days.includes("MON")}
                                 onChange={handleDayChange}
                             />
-                            M
+                            MON
                         </label>
                         <label>
                             <input
                                 type="checkbox"
-                                value="T"
-                                checked={newSchedule.days.includes("T")}
+                                value="TUE"
+                                checked={newSchedule.days.includes("TUE")}
                                 onChange={handleDayChange}
                             />
-                            T
+                            TUE
                         </label>
                         <label>
                             <input
                                 type="checkbox"
-                                value="W"
-                                checked={newSchedule.days.includes("W")}
+                                value="WED"
+                                checked={newSchedule.days.includes("WED")}
                                 onChange={handleDayChange}
                             />
-                            W
+                            WED
                         </label>
                         <label>
                             <input
                                 type="checkbox"
-                                value="TH"
-                                checked={newSchedule.days.includes("TH")}
+                                value="THU"
+                                checked={newSchedule.days.includes("THU")}
                                 onChange={handleDayChange}
                             />
-                            TH
+                            THU
                         </label>
                         <label>
                             <input
                                 type="checkbox"
-                                value="F"
-                                checked={newSchedule.days.includes("F")}
+                                value="FRI"
+                                checked={newSchedule.days.includes("FRI")}
                                 onChange={handleDayChange}
                             />
-                            F
+                            FRI
                         </label>
                         <label>
                             <input
@@ -227,6 +252,11 @@ const BlockSchedule = () => {
                 <button onClick={handleCreateSchedule}>Create New Schedule</button>
             )}
         </div>
+        <div>
+            <button onClick={() => navigate("/")}>Back to Home</button>
+        </div>
+        <ToastContainer />
+        </>
     );
 };
 

@@ -35,4 +35,4 @@ app.use(express.json());
 
 app.use("/", authRoute);
 
-app.use("/", blockScheduleRoute);
+app.use("/blockschedule", blockScheduleRoute);

@@ -11,12 +11,13 @@ const BlockScheduleSchema = new mongoose.Schema({
     website: {
         type: String,
         required: [true, "Website is required"],
+        unique: [true, "Website already exists"],
     },
     days: {
         type: [String],
         validate: {
             validator: (days) => {
-                const validDays = ["M", "T", "W", "TH", "F", "SAT", "SUN"];
+                const validDays = ["MON", "TUE", "WED", "THUR", "FRI", "SAT", "SUN"];
                 return days.every((day) => validDays.includes(day));
             },
             message: "At least one day is required",

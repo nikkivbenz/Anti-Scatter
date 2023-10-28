@@ -1,10 +1,13 @@
-const { getBlockSchedule, createBlockSchedule } = require("../controllers/BlockScheduleController");
+const { getBlockSchedule, createBlockSchedule, deleteBlockSchedule } = require("../controllers/BlockScheduleController");
 const router = require("express").Router();
 
 // Post Routes
-router.post('/blockschedule', createBlockSchedule);
+router.post('/', createBlockSchedule);
 
 // Get Routes
-router.get('/blockschedule/:userId', getBlockSchedule);
+router.get('/:userId/:day?', getBlockSchedule);
+
+// Delete Routes
+router.delete('/:id', deleteBlockSchedule);
 
 module.exports = router;

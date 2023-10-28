@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 */
 
 const Home = () => {
-        const navigate = useNavigate(); // React Router's hook for programmatic navigation
+    const navigate = useNavigate(); // React Router's hook for programmatic navigation
     const [cookies, removeCookie] = useCookies([]); // React Cookies hook for managing cookies
     const [username, setUsername] = useState(""); // React state for storing the username
 
@@ -19,39 +19,41 @@ const Home = () => {
 
     const verifyCookie = async () => {
         // This is an asynchronous function for verifying user authentication.
-
-        if (!cookies.token) {
-            // If the 'token' cookie is not present (user is not authenticated):
+        try {
+            if (!cookies.token) {
+                // If the 'token' cookie is not present (user is not authenticated):
+                navigate("/login");
+                // Navigate to the "/login" route. 'navigate' is used to change the route.
+            }
+    
+            const { data } = await axios.post(
+                "http://localhost:4000",
+                {},
+                { withCredentials: true }
+            );
+    
+            // 'withCredentials: true' sends cookies with the request for session maintenance.
+            const { status, user } = data;
+            setUsername(user.username);
+            // Set the 'username' state with the user's name from the response.
+    
+            return status
+                ? toast(`Hello ${user.username}`, {
+                    position: "top-right",
+                })
+                : (removeCookie("token"), navigate("/login"));
+            // If the authentication is successful (status is true), show a toast notification.
+            // If not, remove the 'token' cookie, and navigate to the "/login" route.
+        } catch (error) {
+            console.log("Error verifying cookie:", error);
             navigate("/login");
-            // Navigate to the "/login" route. 'navigate' is used to change the route.
         }
-        
-        // The following code is not reached if the 'token' cookie is missing:
-        const { data } = await axios.post(
-            "http://localhost:4000",
-            {},
-            { withCredentials: true }
-        );
-        // This sends a POST request to your backend, likely for authentication.
-        // 'withCredentials: true' sends cookies with the request for session maintenance.
-        const { status, user } = data;
-        setUsername(user.username);
-        // Set the 'username' state with the user's name from the response.
-
-        return status
-            ? toast(`Hello ${username}`, {
-                position: "top-right",
-            })
-            : (removeCookie("token"), navigate("/login"));
-        // If the authentication is successful (status is true), show a toast notification.
-        // If not, remove the 'token' cookie, and navigate to the "/login" route.
-        
     };
 
     verifyCookie();
     // Execute the 'verifyCookie' function when the component mounts.
 
-    }, [cookies, navigate, removeCookie, username]);
+    }, [cookies, navigate, removeCookie]);
     // The useEffect depends on 'cookies', 'navigate', and 'removeCookie'.
     // It will re-run whenever any of these dependencies change.
 
