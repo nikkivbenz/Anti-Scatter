@@ -5,6 +5,6 @@ const router = require("express").Router();
 router.post('/blockschedule', createBlockSchedule);
 
 // Get Routes
-router.get('/blockschedule', getBlockSchedule);
+router.get('/blockschedule/:userId', getBlockSchedule);
 
 module.exports = router;

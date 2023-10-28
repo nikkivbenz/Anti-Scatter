@@ -35,11 +35,11 @@ const Home = () => {
         // This sends a POST request to your backend, likely for authentication.
         // 'withCredentials: true' sends cookies with the request for session maintenance.
         const { status, user } = data;
-        setUsername(user);
+        setUsername(user.username);
         // Set the 'username' state with the user's name from the response.
 
         return status
-            ? toast(`Hello ${user}`, {
+            ? toast(`Hello ${username}`, {
                 position: "top-right",
             })
             : (removeCookie("token"), navigate("/login"));
@@ -51,7 +51,7 @@ const Home = () => {
     verifyCookie();
     // Execute the 'verifyCookie' function when the component mounts.
 
-    }, [cookies, navigate, removeCookie]);
+    }, [cookies, navigate, removeCookie, username]);
     // The useEffect depends on 'cookies', 'navigate', and 'removeCookie'.
     // It will re-run whenever any of these dependencies change.
 
@@ -59,8 +59,8 @@ const Home = () => {
         removeCookie("token");
         navigate("/login");
     };
-    const StudySchedule = () => {
-        navigate("/studyschedule");
+    const BlockSchedule = () => {
+        navigate("/blockschedule");
     };
     return (
         <>
@@ -69,7 +69,7 @@ const Home = () => {
             {" "}
             Welcome <span>{username}</span>
             </h4>
-            <button onClick={StudySchedule}>SCHEDULE</button>
+            <button onClick={BlockSchedule}>SCHEDULE</button>
             <button onClick={Logout}>LOGOUT</button>
         </div>
         <ToastContainer />

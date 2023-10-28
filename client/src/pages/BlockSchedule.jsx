@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 const BlockSchedule = () => {
     const navigate = useNavigate();
     const [cookies, removeCookie] = useCookies([]);
-    const [username, setUsername] = useState("");
+    const [userId, setUserId] = useState("");
     const [schedules, setSchedules] = useState([]);
     const [newSchedule, setNewSchedule] = useState({
         website: '',
@@ -18,9 +18,6 @@ const BlockSchedule = () => {
     const [isCreatingSchedule, setIsCreatingSchedule] = useState(false);
 
     useEffect(() => {
-        // Fetch schedule data from MongoDB or your API and set it in the 'schedules' state
-        // You can use libraries like Axios or fetch to make API requests
-        // Example: fetchScheduleData().then(data => setSchedules(data));
         const verifyCookie = async () => {
             if (!cookies.token) {
                 navigate("/login");
@@ -33,20 +30,20 @@ const BlockSchedule = () => {
             );
             
             const { status, user } = data;
-            setUsername(user);
+            setUserId(user._id);
             return status
-                ? toast(`Hello ${user}`, {
-                    position: "top-right",
-                })
+                ? userId
                 : (removeCookie("token"), navigate("/login"));
             };
-            verifyCookie();
 
-        if (username) {
+        verifyCookie();
+
+        if (userId) {
+            console.log(userId)
             const fetchSchedules = async () => {
                 try {
-                    const response = await axios.get("http://localhost:4000/blockschedule?userId=${username._id}");
-                    const schedulesArray = Object.values(response.data);
+                    const response = await axios.get(`http://localhost:4000/blockschedule/${userId}`);
+                    const schedulesArray = Object.values(response.data.blockSchedule);
                     setSchedules(schedulesArray);
                     console.log(schedulesArray);
                 } catch (error) {
@@ -56,13 +53,13 @@ const BlockSchedule = () => {
 
             fetchSchedules();
         }
-    }, [cookies, navigate, username, removeCookie]); // Trigger the fetch when the component mounts
+    }, [cookies, navigate, removeCookie]); // Trigger the fetch when the component mounts
 
     const saveSchedule = async (newSchedule) => {
         try {
             setNewSchedule({
                 ...newSchedule,
-                userId: username._id,
+                userId: userId
             });
 
             const { data } = await axios.post(
@@ -102,6 +99,17 @@ const BlockSchedule = () => {
         setIsCreatingSchedule(false);
     };
 
+    const handleDayChange = (e) => {
+        const { value } = e.target;
+        const { days } = newSchedule;
+        if (days.includes(value)) {
+            const newDays = days.filter((day) => day !== value);
+            setNewSchedule({ ...newSchedule, days: newDays });
+        } else {
+            setNewSchedule({ ...newSchedule, days: [...days, value] });
+        }
+    };
+
     return (
         <div>
             <h1>Schedule</h1>
@@ -137,12 +145,72 @@ const BlockSchedule = () => {
                         value={newSchedule.website}
                         onChange={(e) => setNewSchedule({ ...newSchedule, website: e.target.value })}
                     />
-                    <input
-                        type="text"
-                        placeholder="Days (e.g., M, T, W)"
-                        value={newSchedule.days}
-                        onChange={(e) => setNewSchedule({ ...newSchedule, days: e.target.value.split(", ") })}
-                    />
+                    <div>
+                        <p>Days:</p>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="M"
+                                checked={newSchedule.days.includes("M")}
+                                onChange={handleDayChange}
+                            />
+                            M
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="T"
+                                checked={newSchedule.days.includes("T")}
+                                onChange={handleDayChange}
+                            />
+                            T
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="W"
+                                checked={newSchedule.days.includes("W")}
+                                onChange={handleDayChange}
+                            />
+                            W
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="TH"
+                                checked={newSchedule.days.includes("TH")}
+                                onChange={handleDayChange}
+                            />
+                            TH
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="F"
+                                checked={newSchedule.days.includes("F")}
+                                onChange={handleDayChange}
+                            />
+                            F
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="SAT"
+                                checked={newSchedule.days.includes("SAT")}
+                                onChange={handleDayChange}
+                            />
+                            SAT
+                        </label>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value="SUN"
+                                checked={newSchedule.days.includes("SUN")}
+                                onChange={handleDayChange}
+                            />
+                            SUN
+                        </label>
+                    </div>
                     <input
                         type="time"
                         value={newSchedule.startTime}

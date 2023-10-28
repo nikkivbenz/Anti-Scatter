@@ -34,7 +34,7 @@ module.exports.createBlockSchedule = async (req, res, next) => {
 
 module.exports.getBlockSchedule = async (req, res, next) => {
     try {
-        const { userId } = req.body;
+        const userId = req.params.userId;
 
         const blockSchedule = await BlockSchedule.find({ userId: userId });
         
@@ -42,7 +42,7 @@ module.exports.getBlockSchedule = async (req, res, next) => {
             return res.json({ message: 'Error fetching schedule' });
         }
         res.status(200).json({ message: 'Block Schedule fetched successfully', success: true, blockSchedule });
-        console.log(Object.values(blockSchedule));
+
         next();
     } catch (error) {
         console.error(error);
