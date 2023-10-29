@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {User}  = require('./server/models/UserModel.js');
+const {User}  = require('./UserModel');
 
 const todoSchema = new mongoose.Schema({
     userId: {

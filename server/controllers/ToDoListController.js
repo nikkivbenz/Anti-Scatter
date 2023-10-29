@@ -1,5 +1,5 @@
 const { User } = require("../Models/UserModel");
-const Todo = require('./server/models/ToDoListModel.js');
+const Todo = require('../models/ToDoListModel');
 
 // Controller to create a new to-do item
 module.exports.createTodo = (req, res) => {
