@@ -134,7 +134,7 @@ const BlockSchedule = () => {
     return (
         <>
         <div>
-            <h1>Schedule</h1>
+            <h1>Block Schedule</h1>
             
             {schedules.length === 0 ? (
                 <p>You currently have no study schedule.</p>
