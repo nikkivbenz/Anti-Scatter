@@ -6,6 +6,7 @@ const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const cookieParser = require('cookie-parser');
 const authRoute = require('./routes/AuthRoute');
+const friendRoute = require('./routes/FriendRoute');
 const { MONGO_URL, PORT } = process.env;
 
 mongoose
@@ -33,3 +34,5 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/", authRoute);
+
+app.use("/friends", friendRoute);
