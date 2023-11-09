@@ -3,11 +3,7 @@
   "name": "Anti-Scatter",
   "version": "1.0",
   "description": "Description of your extension",
-  "permissions": [
-    "activeTab",
-    "tabs",
-    "storage"
-  ],
+  "permissions": ["activeTab", "tabs", "storage"],
 
   "action": {
     "default_popup": "popup/popup.html",
@@ -16,5 +12,6 @@
   "background": {
     "service_worker": "background/background.js"
   },
-  "content_scripts": []
+  "content_scripts": [],
+  "start_url": "."
 }
