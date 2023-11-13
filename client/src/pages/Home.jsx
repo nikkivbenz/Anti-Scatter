@@ -36,6 +36,10 @@ const Home = () => {
         removeCookie("token");
         navigate("/signup");
     };
+
+    const Dashboard = () => {
+        navigate("/dashboard"); 
+    }; 
     return (
         <>
         <div className="home_page">
@@ -44,6 +48,7 @@ const Home = () => {
             Welcome <span>{username}</span>
             </h4>
             <button onClick={Logout}>LOGOUT</button>
+            <button onClick={Dashboard}>GO TO DASHBOARD</button>
         </div>
         <ToastContainer />
         </>
