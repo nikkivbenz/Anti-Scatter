@@ -64,6 +64,10 @@ const Home = () => {
     const BlockSchedule = () => {
         navigate("/blockschedule");
     };
+
+    const Dashboard = () => {
+        navigate("/dashboard"); 
+    }; 
     return (
         <>
         <div className="home_page">
@@ -73,6 +77,7 @@ const Home = () => {
             </h4>
             <button onClick={BlockSchedule}>SCHEDULE</button>
             <button onClick={Logout}>LOGOUT</button>
+            <button onClick={Dashboard}>GO TO DASHBOARD</button>
         </div>
         <ToastContainer />
         </>
