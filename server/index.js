@@ -7,21 +7,23 @@ require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const authRoute = require('./routes/AuthRoute');
 
+const blockScheduleRoute = require('./routes/BlockScheduleRoute');
+
 mongoose
-    .connect(MONGO_URL, {
+    .connect(process.env.MONGO_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
     .then(() => console.log("MongoDB is connected successfully"))
     .catch((err) => console.error(err));
 
-app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
+app.listen(process.env.PORT || 4000, () => {
+    console.log(`Server is listening on port ${process.env.PORT}`);
 });
 
 app.use(
     cors({
-        origin: ["http://localhost:3001"],
+        origin: ["http://localhost:3000"],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
     })
@@ -33,14 +35,4 @@ app.use(express.json());
 
 app.use("/", authRoute);
 
-
-app.get("/*", function (req, res) {
-    res.sendFile(
-        path.join(__dirname, "../client/build/index.html"),
-        function (err) {
-            if (err) {
-                res.status(500).send(err);
-            }
-        }
-    );
-});
+app.use("/blockschedule", blockScheduleRoute);

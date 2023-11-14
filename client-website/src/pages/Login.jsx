@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 
-
 const Login = () => {
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState({
@@ -32,7 +31,7 @@ const Login = () => {
         e.preventDefault();
         try {
         const { data } = await axios.post(
-            "http://localhost:4000/login",
+            "https://anti-scatter-36f9c5f65c17.herokuapp.com/login",
             {
             ...inputValue,
             },
@@ -84,7 +83,7 @@ const Login = () => {
             </div>
             <button type="submit">Submit</button>
             <span>
-            Already have an account? <Link to={"/signup"}>Signup</Link>
+            Don't have an account? <Link to={"/signup"}>Signup</Link>
             </span>
         </form>
         <ToastContainer />
