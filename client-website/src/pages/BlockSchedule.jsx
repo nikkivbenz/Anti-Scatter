@@ -1,3 +1,5 @@
+// BlockSchedule page
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
@@ -18,6 +20,7 @@ const BlockSchedule = () => {
     });
     const [isCreatingSchedule, setIsCreatingSchedule] = useState(false);
 
+    // Fetch the schedules from the database
     const fetchSchedules = async () => {
         try {
             const response = await axios.get(`http://localhost:4000/blockschedule/${userId}`);
@@ -28,6 +31,7 @@ const BlockSchedule = () => {
         }
     };
 
+    // Check if the user is logged in
     useEffect(() => {
         const verifyCookie = async () => {
             if (!cookies.token) {
@@ -54,9 +58,14 @@ const BlockSchedule = () => {
         }
     }, [cookies, navigate, removeCookie, userId, fetchSchedules]); // Trigger the fetch when the component mounts
 
-    
+    // Sets the 'isCreatingSchedule' state to true and reveals the form for creating a new schedule
+    const handleCreateSchedule = () => {
+        setIsCreatingSchedule(true);
+    };
 
-    const saveSchedule = async (newSchedule) => {
+    // Saves the new schedule to the database and resets the 'newSchedule' state
+    const handleSaveSchedule = async () => {
+        // Send the new schedule data to the server and update the 'schedules' state
         try {
             const schedule = {
                 ...newSchedule,
@@ -82,16 +91,8 @@ const BlockSchedule = () => {
         } catch (error) {
             console.log(error);
         }
-    };
 
-    const handleCreateSchedule = () => {
-        setIsCreatingSchedule(true);
-    };
-
-    const handleSaveSchedule = () => {
-        // Send the new schedule data to the server and update the 'schedules' state
-        saveSchedule(newSchedule);
-
+        window.location.reload();
         fetchSchedules();
 
         // After saving, reset the 'newSchedule' state and exit the creation mode
@@ -99,6 +100,7 @@ const BlockSchedule = () => {
         setIsCreatingSchedule(false);
     };
 
+    // Updates the 'days' state when the user checks/unchecks a day
     const handleDayChange = (e) => {
         const { value } = e.target;
         const { days } = newSchedule;
@@ -112,6 +114,7 @@ const BlockSchedule = () => {
         }
     };
 
+    // Deletes a schedule from the database
     const handleDeleteSchedule = async (scheduleId) => {
         try {
             const { data } = await axios.delete(`http://localhost:4000/blockschedule/${scheduleId}`);
