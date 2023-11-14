@@ -1,0 +1,97 @@
+.main-title{
+    padding-top: 0.5rem;
+}
+
+.nav-link:hover{
+    color: #626262 !important; /* Change text color to black on hover */
+    transition: color 0.2s ease-in-out; /* Smooth transition for color change */
+}
+
+#content {
+    display: inline-block;
+    height: 100vh;
+    overflow-x: hidden;
+    padding-left: 1 rem; 
+}
+
+#header{
+    height: 6rem;   
+    
+}
+
+#main-content{
+    padding-top: 1rem;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+
+#background{
+    width: 100%;
+}
+
+#container {
+    position: relative; /* Set the parent container to relative */
+  }
+  
+
+.App {
+   /* background-image: url(./pages/header_background.jpeg);*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh; /* This sets the height to the full viewport height */
+    width: 100vw; /* This sets the width to the full viewport width */
+    position: absolute; /* Ensures the div covers the entire screen */
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+}
+
+#scorecards{
+    padding: 2rem;
+}
+.bargraph{
+    padding-top: 3rem; 
+    border-color: #D8E2DC;
+    border-width: .02rem;
+    padding-left: 1rem; 
+    border: 2px solid #ccc; /* Optional: adds a border */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for transform and shadow */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Initial subtle shadow for depth */
+}
+
+  .jumbotron{
+    background-size: 100%;
+    height: 7rem;
+
+  }
+
+  .nav-container .bg-body-tertiary{
+    height:100%;
+    background-color: #ededed !important;
+  }
+
+  .header-login-btn-wrapper{
+    display:flex !important;
+    justify-content:center !important;
+    align-item:center !important;
+
+
+  }
+
+  .header-login-btn{
+    width: 200px;
+    margin-top: 1rem;
+  }
+  
+    
+.header-login-btn-text{
+    color:white;
+    
+    }
+
+    .jumbotron-text{
+        text-align:center;
+        color:white;
+        font-size: 12px;
+    }
