@@ -102,11 +102,13 @@ const BlockSchedule = () => {
     const handleDayChange = (e) => {
         const { value } = e.target;
         const { days } = newSchedule;
+        
         if (days.includes(value)) {
             const newDays = days.filter((day) => day !== value);
             setNewSchedule({ ...newSchedule, days: newDays });
         } else {
             setNewSchedule({ ...newSchedule, days: [...days, value] });
+            console.log(days)
         }
     };
 

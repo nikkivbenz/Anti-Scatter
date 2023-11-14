@@ -49,15 +49,11 @@ async function updateBlockScheduleStorage() {
         const blockedSites = (await response.json()).blockSchedule;
 
         chrome.storage.local.get(["blockScheduleSites"], function (result) {
-            var sites = result.blockScheduleSites || [];
+            var sites = [];
 
             blockedSites.forEach(blockedSite => {
                 if (isTimeWithinTimeFrame(blockedSite.timeFrame)) {
                     var domain = extractHostname(blockedSite.website);
-    
-                    if (sites.includes(domain)) {
-                        return;
-                    }
     
                     sites.push(domain);
                 };
