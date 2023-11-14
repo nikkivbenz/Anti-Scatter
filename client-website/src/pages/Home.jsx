@@ -27,7 +27,7 @@ const Home = () => {
             }
     
             const { data } = await axios.post(
-                "http://localhost:4000",
+                "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
                 {},
                 { withCredentials: true }
             );

@@ -10,12 +10,13 @@ function Header() {
     <div className="jumbotron" style={{ backgroundImage: `url(${header_jumbotron_bg})` }}>
 
 <Container>
-
-<div className="btn header-login-btn-wrapper">
-    <Button variant="warning" className="header-login-btn"><div className="header-login-btn-text">Login</div></Button>{' '}
-</div>
-<p className="jumbotron-text">
-       Don't have an account yet?  Please sign up here. </p>
+  <div className="btn header-login-btn-wrapper">
+    <Button variant="warning" className="header-login-btn">
+    <div className="header-login-btn-text">Login</div></Button>{' '}
+  </div>
+  <p className="jumbotron-text">
+    Don't have an account yet?  Please sign up here. 
+  </p>
 </Container>
 
 

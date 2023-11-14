@@ -23,7 +23,7 @@ const BlockSchedule = () => {
     // Fetch the schedules from the database
     const fetchSchedules = async () => {
         try {
-            const response = await axios.get(`http://localhost:4000/blockschedule/${userId}`);
+            const response = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/blockschedule/${userId}`);
             const schedulesArray = Object.values(response.data.blockSchedule);
             setSchedules(schedulesArray);
         } catch (error) {
@@ -39,7 +39,7 @@ const BlockSchedule = () => {
             }
             
             const { data } = await axios.post(
-                "http://localhost:4000/",
+                "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
                 {},
                 { withCredentials: true }
             );
@@ -73,7 +73,7 @@ const BlockSchedule = () => {
             };
 
             const { data } = await axios.post(
-                "http://localhost:4000/blockschedule",
+                "https://anti-scatter-36f9c5f65c17.herokuapp.com/blockschedule",
                 schedule,
                 { withCredentials: true }
             );
@@ -117,7 +117,7 @@ const BlockSchedule = () => {
     // Deletes a schedule from the database
     const handleDeleteSchedule = async (scheduleId) => {
         try {
-            const { data } = await axios.delete(`http://localhost:4000/blockschedule/${scheduleId}`);
+            const { data } = await axios.delete(`https://anti-scatter-36f9c5f65c17.herokuapp.com/blockschedule/${scheduleId}`);
             const { success, message } = data;
             if (success) {
                 toast.success(message, {

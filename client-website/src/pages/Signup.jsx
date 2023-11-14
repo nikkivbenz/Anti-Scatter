@@ -34,7 +34,7 @@ const Signup = () => {
         e.preventDefault();
         try {
         const { data } = await axios.post(
-            "http://localhost:4000/signup",
+            "https://anti-scatter-36f9c5f65c17.herokuapp.com/signup",
             {
             ...inputValue,
             },
