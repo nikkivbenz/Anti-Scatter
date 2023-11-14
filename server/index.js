@@ -3,10 +3,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
 const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const authRoute = require('./routes/AuthRoute');
-const { MONGO_URL, PORT } = process.env;
 
 mongoose
     .connect(MONGO_URL, {
@@ -33,3 +32,15 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/", authRoute);
+
+
+app.get("/*", function (req, res) {
+    res.sendFile(
+        path.join(__dirname, "../client/build/index.html"),
+        function (err) {
+            if (err) {
+                res.status(500).send(err);
+            }
+        }
+    );
+});
