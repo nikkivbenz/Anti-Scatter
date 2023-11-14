@@ -166,14 +166,14 @@ const bargraph_data = [
 
 
 
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
-  
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
 function ScoreCards() {
     return (
         <Box class = "container" sx={{ flexGrow: 1, maxWidth: 900}} id="scorecards"> {/* Changed flexGrow to 1 */}
@@ -205,7 +205,7 @@ class Dashboard extends Component{
     }; 
 
     componentDidMount() {
-        axios.get('http://localhost:5000/api/hello')
+        axios.get('http://localhost:4000/api/hello')
         .then(response => {
             this.setState({data: response.data.message}); 
         })
@@ -230,8 +230,6 @@ render()
           <Row>
             <Col xs={6}> <BarGraph /></Col>
             <Col xs={6}> <PieChart1 /> </Col>
-            
-            
           </Row>
           
     

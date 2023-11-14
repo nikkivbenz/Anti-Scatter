@@ -2,15 +2,9 @@ import './App.css';
 import './Website.css';
 
 
-import {Route, Routes} from 'react-router-dom';
-import {BlockSchedule, Login, Signup} from "./pages";
-import Home from "./pages/Home";
-
-import Header from './pages/Header';
-import NavigationBar from './pages/NavigationBar';
-import Dashboard from './pages/Dashboard';
-import Feedback from "./pages/Feedback";
-import FAQ from './pages/FAQ';
+import { Route, Routes } from 'react-router-dom';
+import { BlockSchedule, Login, Signup, Home } from "./pages";
+import { Header, NavigationBar, Dashboard, Feedback, FAQ } from "./pages";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -22,8 +16,8 @@ function App() {
   return (
     
     <div className="App">
-<Container>
-      <Header/> 
+      <Container>
+        <Header/> 
         <Row>
           <Col sm={3}>
             <NavigationBar /> 
