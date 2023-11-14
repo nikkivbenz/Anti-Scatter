@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "react-icons": "^4.11.0"
+  },
+  "scripts": {
+    "start": "cd server && npm start"
+  },
+  "engines": {
+    "node": "v18.16.0"
+  }
+}
