@@ -6,29 +6,12 @@ function FAQ() {
     <> 
     <div id="content"> 
   
-    <Accordion defaultActiveKey="0" id="main-content">
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>Tutorials</Accordion.Header>
-        <Accordion.Body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </Accordion.Body>
-      </Accordion.Item>
+    <Accordion defaultActiveKey="1" id="main-content">
       <Accordion.Item eventKey="1">
         <Accordion.Header>Allowlist & Blocklist</Accordion.Header>
         <Accordion.Body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          By adding websites to the Allowlist and Blocklist section, you are able 
+          to choose which websites that you do not allow during a study session. 
         </Accordion.Body>
       </Accordion.Item>
 

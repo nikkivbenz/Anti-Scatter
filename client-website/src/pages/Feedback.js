@@ -34,9 +34,9 @@ const handleSubmit = async (event) => {
 
   return (
     <div id="content"> 
-    <Container id="main-content">
+    <Container >
       <Row>
-        <Col md={{ span: 6, offset: 3 }}>
+        <Col id="feedbackform" >
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="feedbackForm.Name">
               <Form.Label>Name</Form.Label>

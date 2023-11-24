@@ -95,3 +95,15 @@
         color:white;
         font-size: 12px;
     }
+
+  #loginColumn {
+    padding:0.5rem;
+  }
+
+  #loginlabel {
+    padding-right: 1rem; 
+  }
+
+  #feedbackform {
+    justify-content: center;
+  }

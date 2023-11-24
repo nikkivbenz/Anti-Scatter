@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Badge from 'react-bootstrap/Badge';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -58,11 +62,13 @@ const Login = () => {
     };
 
     return (
+        <Form> 
+        <Row className ="mb-3" >
         <div className="form_container">
-        <h2>Login Account</h2>
+        <h2><Badge bg="warning">Login Account</Badge> </h2>
         <form onSubmit={handleSubmit}>
-            <div>
-            <label htmlFor="email">Email</label>
+            <Col id = "loginColumn"> 
+            <label id = "loginlabel" htmlFor="email">Email</label>
             <input
                 type="email"
                 name="email"
@@ -70,9 +76,9 @@ const Login = () => {
                 placeholder="Enter your email"
                 onChange={handleOnChange}
             />
-            </div>
-            <div>
-            <label htmlFor="password">Password</label>
+            </Col>
+           <Col id = "loginColumn" > 
+            <label id = "loginlabel" htmlFor="password">Password </label>
             <input
                 type="password"
                 name="password"
@@ -80,15 +86,22 @@ const Login = () => {
                 placeholder="Enter your password"
                 onChange={handleOnChange}
             />
-            </div>
+            </Col> 
+            <Col id = "loginColumn"> 
             <button type="submit">Submit</button>
+            </Col>
+            <Col id= "loginColumn"> 
             <span>
             Don't have an account? <Link to={"/signup"}>Signup</Link>
             </span>
+            </Col>
         </form>
         <ToastContainer />
         </div>
+        </Row>
+        </Form> 
     );
+
 };
 
 export default Login;

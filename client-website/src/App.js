@@ -3,8 +3,8 @@ import './Website.css';
 
 
 import { Route, Routes } from 'react-router-dom';
-import { BlockSchedule, Login, Signup, Home } from "./pages";
-import { Header, NavigationBar, Dashboard, Feedback, FAQ } from "./pages";
+import { Login, Signup, Home } from "./pages";
+import { Header, NavigationBar, Dashboard, Feedback, FAQ , Settings, StartSession, ToDoList, Allowlist, Blocklist, BlockSchedule, Social } from "./pages";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -31,6 +31,12 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/feedback" element={<Feedback/>} /> 
               <Route path="/FAQ" element={<FAQ/>} /> 
+              <Route path="/settings" element={<Settings/>} /> 
+              <Route path ="/allowlist" element={<Allowlist/>} />
+              <Route path ="/blocklist" element={<Blocklist/>} />
+              <Route path ="/startsession" element={<StartSession/>} />
+              <Route path ="/todolist" element={<ToDoList/>} />
+              <Route path ="/social" element={<Social/>} />
             </Routes>
           </Col>
         </Row>
