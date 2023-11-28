@@ -107,3 +107,15 @@
   #feedbackform {
     justify-content: center;
   }
+
+  #timer{
+    padding-top: 2rem; 
+  }
+
+#session-rows {
+  padding: 1rem; 
+}
+
+#toggle-buttons {
+  margin-left: 1rem; 
+}

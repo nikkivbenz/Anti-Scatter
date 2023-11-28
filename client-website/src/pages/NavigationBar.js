@@ -44,7 +44,7 @@ export default function NavigationBar() {
 
       <Navbar className="bg-body-tertiary">
         <Container>
-        <Nav.Link as={Link} to="/Blockschedule" className="nav-link">Block By Schedule</Nav.Link>
+        <Nav.Link as={Link} to="/BlockSchedule" className="nav-link">Block By Schedule</Nav.Link>
         </Container>
       </Navbar>
 
