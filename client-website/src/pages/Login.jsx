@@ -41,6 +41,7 @@ const Login = () => {
       const { success, message } = data;
       if (success) {
         handleSuccess(message);
+        console.log("going to nav...");
         setTimeout(() => {
           navigate("/");
         }, 1000);

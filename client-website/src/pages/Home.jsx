@@ -14,9 +14,12 @@ const Home = () => {
   const [username, setUsername] = useState("");
   useEffect(() => {
     const verifyCookie = async () => {
+      console.log(cookies.token);
+      console.log("NAVIGATED");
       if (!cookies.token) {
         navigate("/login");
       }
+
       const { data } = await axios.post(
         "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
         {},
