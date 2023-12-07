@@ -19,6 +19,8 @@ function StartSession() {
   const [minutes, setMinutes] = useState('00');
   const [hours, setHours] = useState('00');
 
+  const userID = "test1"; 
+
   const onMinutesChange = (e) => setMinutes(e.target.value);
   const onHoursChange = (e) => setHours(e.target.value);
 
@@ -31,7 +33,23 @@ function StartSession() {
 
   const handleClick = (buttonName) => {
     setActive(buttonName);
+    // Send data to Flask server
+    sendDataToServer(minutes, hours, buttonName);
   };
+
+  const sendDataToServer = async (minutes, hours, blockingMethod) => {
+  try {
+    const response = await axios.post("/api/start-session", {
+      minutes,
+      hours,
+      blockingMethod,
+      userID
+    });
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
  
 
@@ -77,12 +95,7 @@ function StartSession() {
                 >
                 Blocklist
                 </Button>{' '}
-                <Button  id='toggle-buttons'
-                variant={active === 'allowlist' ? 'success' : 'danger'}
-                onClick={() => handleClick('allowlist')}
-                >
-                Allowlist
-                </Button>{' '}
+
                 <Button  id='toggle-buttons'
                 variant={active === 'blockByTheme' ? 'success' : 'danger'}
                 onClick={() => handleClick('blockByTheme')}
@@ -143,9 +156,15 @@ function StartSession() {
     <Container > 
         <Row> 
             <Col className= "d-flex justify-content-center align-items-center"> 
-        <Button  variant="primary" onClick={handleShow}>
-            Start Session
-        </Button> 
+            <Button
+                variant="primary"
+                onClick={() => {
+                    handleShow();
+                    sendDataToServer(minutes, hours, active);
+                }}
+                >
+                Start Session
+            </Button>
         </Col>
         </Row> 
 
