@@ -9,7 +9,6 @@ const Feedback = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
-  // Modify your handleSubmit function
 const handleSubmit = async (event) => {
     try {
       const response = await axios.post('http://localhost:5000/submit_feedback', {
