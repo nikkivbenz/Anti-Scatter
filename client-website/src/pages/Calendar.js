@@ -77,7 +77,19 @@ const CalendarComponent = () => {
       setEvents(events);
     });
   };
-
+  // Adding the visual calendar events (Renderin)
+  return (
+    <div>
+      <h1>Google Calendar</h1>
+      <ul>
+        {events.map(event => (
+          <li key={event.id}>
+            {event.summary} ({new Date(event.start.dateTime).toLocaleString()})
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default CalendarComponent;
