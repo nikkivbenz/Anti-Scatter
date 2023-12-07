@@ -29,11 +29,6 @@ const CalendarComponent = () => {
   // Store the events from Google Calendar
   const [events, setEvents] = useState([]);
 
-  // Effect hook to initialize the Google API client when the component mounts
-  useEffect(() => {
-    gapi.load('client:auth2', initClient);
-  }, []);
-
   // Initializes the Google API client with my credentials and sets up sign-in state listeners
   const initClient = () => {
     gapi.client.init({
@@ -45,13 +40,17 @@ const CalendarComponent = () => {
 
       // Listening for sign-in state changes
       gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-
       // Handle the current sign-in state
       updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
     }, error => {
       console.error(error);
     });
   };
+
+   // Effect hook to initialize the Google API client when the component mounts
+   useEffect(() => {
+    gapi.load('client:auth2', initClient);
+  }, [initClient]); //There was a missing dependancy here , I just added that now
 
   // Updates the sign-in status and fetches events if the user is signed in
   const updateSigninStatus = (isSignedIn) => {
