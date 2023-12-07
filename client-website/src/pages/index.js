@@ -15,4 +15,5 @@ export {default as ToDoList} from './ToDoList';
 export {default as Blocklist} from './Blocklist'; 
 export {default as Social} from './Social'; 
 export {default as Calendar} from './Calendar'; 
+export {default as ReleaseNotes} from './ReleaseNotes'; 
 

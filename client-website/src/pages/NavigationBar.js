@@ -86,6 +86,12 @@ export default function NavigationBar() {
         <Nav.Link as={Link} to="/Feedback" className="nav-link">Give Us Feedback!</Nav.Link>
         </Container>
       </Navbar>
+
+      <Navbar className="bg-body-tertiary" >
+        <Container>
+        <Nav.Link as={Link} to="/ReleaseNotes" className="nav-link">ReleaseNotes</Nav.Link>
+        </Container>
+      </Navbar>
       </div>  
        {/* <Navbar className="navbar navbar-expand-lg  sidebar" id="sideNav" >
         <Container>
