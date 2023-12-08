@@ -16,6 +16,8 @@ import {
   BlockSchedule,
   Social,
   Calendar,
+  Timer, 
+  SessionComplete
 } from "./pages";
 
 import Container from "react-bootstrap/Container";
@@ -47,6 +49,8 @@ function App() {
               <Route path="/TodoList" element={<ToDoList />} />
               <Route path="/social" element={<Social />} />
               <Route path="/Calendar" element={<Calendar />} />
+              <Route path="/Timer" element={<Timer />} />
+              <Route path="/SessionComplete" element={<SessionComplete />} />
             </Routes>
           </Col>
         </Row>

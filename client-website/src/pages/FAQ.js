@@ -1,5 +1,4 @@
 import Accordion from 'react-bootstrap/Accordion';
-import Header from './Header';
 
 function FAQ() {
   return (

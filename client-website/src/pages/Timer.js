@@ -8,10 +8,16 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
-function Timer({ hours, minutes }) {
+function Timer() {
+
+  const location = useLocation();
+  const { hours, minutes } = location.state || {}; // Provide a default object in case state is undefined
+
+
+  console.log('Received Hours:', hours, 'Received Minutes:', minutes);
   const totalSeconds = parseInt(hours) * 3600 + parseInt(minutes) * 60;
   const [secondsLeft, setSecondsLeft] = useState(totalSeconds);
 
@@ -36,7 +42,7 @@ function Timer({ hours, minutes }) {
     const hrs = Math.floor(secondsLeft / 3600);
     const mins = Math.floor((secondsLeft % 3600) / 60);
     const secs = secondsLeft % 60;
-    return `${hrs}:${mins}:${secs}`;
+    return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
 
