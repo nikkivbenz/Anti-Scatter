@@ -11,7 +11,7 @@ const Feedback = () => {
   // Modify your handleSubmit function
 const handleSubmit = async (event) => {
     try {
-      const response = await axios.post('http://localhost:5000/submit_feedback', {
+      const response = await axios.post('http://nkbenz.pythonanywhere.com/api/submit_feedback', {
         name,
         email,
         message

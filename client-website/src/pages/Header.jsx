@@ -101,8 +101,6 @@ function Header() {
   const loggedIn = () => {
     return (
       <>
-      <div className="main-title h2" s>Anti-Scatter: Release your Productivity!</div>
-      <div className="jumbotron" style={{ backgroundImage: `url(${header_jumbotron_bg})` }}>
         <Container>
           <div className="btn header-login-btn-wrapper">
             <Button variant="warning" className="header-login-btn">
@@ -113,7 +111,6 @@ function Header() {
             <blockquote>{quote} - {quoteAuthor}</blockquote>
           </div>
         </Container>
-      </div>
       </>
     )
   }
@@ -121,9 +118,6 @@ function Header() {
   const loggedOut = () => {
     return (
       <>
-      <div className="main-title h2" s>Anti-Scatter: Release your Productivity!</div>
-      <div className="jumbotron" style={{ backgroundImage: `url(${header_jumbotron_bg})` }}>
-
       <Container>
         <div className="btn header-login-btn-wrapper">
           <Button  onClick={handleLogin} variant="warning" className="header-login-btn">
@@ -133,15 +127,21 @@ function Header() {
           Don't have an account yet? <Link to={"/signup"}> Please sign up here. </Link>
         </p>
       </Container>
-
-      </div>
       </>
     )
   }
 
   return (
     <>
-    {isLoggedIn ? loggedIn() : loggedOut()}
+      <div className="main-title h2" s>Anti-Scatter: Release your Productivity!</div>
+      <div className="jumbotron" style={{ backgroundImage: `url(${header_jumbotron_bg})` }}>
+
+        {/* Google Translate Element */}
+        <div id="google_translate_element" style={{ position: 'absolute', top: 0, right: 0, zIndex: 1000 }}></div>
+
+        {isLoggedIn ? loggedIn() : loggedOut()}
+
+      </div>
     </>
   )
 }

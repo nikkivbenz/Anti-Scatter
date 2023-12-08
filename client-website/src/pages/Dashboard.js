@@ -39,7 +39,7 @@ function TotalStudyTime() {
           Total Study Time
         </Typography>
         <Typography variant="body2">
-          157 minutes
+          157 minutes 
         </Typography>
       </CardContent>
     </Card>
