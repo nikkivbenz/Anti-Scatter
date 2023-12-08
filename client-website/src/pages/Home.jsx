@@ -54,6 +54,7 @@ const Home = () => {
     const Logout = () => {
         localStorage.removeItem("token");
         navigate("/login");
+        window.location.reload();
     };
     
     const Dashboard = () => {
