@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -20,16 +19,6 @@ const Signup = () => {
         });
     };
 
-    const handleError = (err) =>
-        toast.error(err, {
-        position: "bottom-left",
-        });
-
-    const handleSuccess = (msg) =>
-        toast.success(msg, {
-        position: "bottom-left",
-        });
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -40,16 +29,15 @@ const Signup = () => {
             },
             { withCredentials: true }
         );
-        const { success, message } = data;
+        const { success, token } = data;
 
         if (success) {
-            handleSuccess(message);
+            localStorage.setItem("token", token);
             setTimeout(() => {
                 navigate("/");
             }, 1000);
-        } else {
-            handleError(message);
-        }
+        } 
+
         } catch (error) {
         console.log(error);
         }
@@ -103,7 +91,6 @@ const Signup = () => {
                     </span>
                 </div>
             </form>
-            <ToastContainer />
         </div>
     );
 };

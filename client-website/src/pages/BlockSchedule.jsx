@@ -1,6 +1,6 @@
 // BlockSchedule page
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
@@ -20,36 +20,62 @@ const BlockSchedule = () => {
     });
     const [isCreatingSchedule, setIsCreatingSchedule] = useState(false);
 
-    // Fetch the schedules from the database
-    const fetchSchedules = async () => {
+    // // Fetch the schedules from the database
+    // const fetchSchedules = async () => {
+    //     try {
+    //         const response = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/blockschedule/${userId}`);
+    //         const schedulesArray = Object.values(response.data.blockSchedule);
+    //         setSchedules(schedulesArray);
+    //     } catch (error) {
+    //         console.log('Error fetching schedules:', error);
+    //     }
+    // };
+    
+    const fetchSchedules = useCallback(async () => {
         try {
-            const response = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/blockschedule/${userId}`);
-            const schedulesArray = Object.values(response.data.blockSchedule);
-            setSchedules(schedulesArray);
+          const response = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/blockschedule/${userId}`);
+          const schedulesArray = Object.values(response.data.blockSchedule);
+          setSchedules(schedulesArray);
         } catch (error) {
-            console.log('Error fetching schedules:', error);
+          console.log('Error fetching schedules:', error);
         }
-    };
-
+      }, [userId]); // Add any dependencies of fetchSchedules here
+    
+      useEffect(() => {
+        if (userId) {
+          fetchSchedules();
+        }
+      }, [userId, fetchSchedules]); // fetchSchedules is now stable and won't cause unnecessary re-executions
+    
     // Check if the user is logged in
     useEffect(() => {
         const verifyCookie = async () => {
-            if (!cookies.token) {
+            try {
+                const storedToken = localStorage.getItem("token");
+                if (!storedToken) {
+                    navigate("/login");
+                    // Navigate to the "/login" route. 'navigate' is used to change the route.
+                }
+        
+                const { data } = await axios.post(
+                    "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+                    {token: storedToken}
+                );
+        
+                const { status, user } = data;
+                setUserId(user._id);
+                // Set the 'username' state with the user's name from the response.
+        
+                return status
+                    ? console.log(`Verified ${user.username}!`)
+                    : (localStorage.removeItem("token"), navigate("/login"));
+                // If the authentication is successful (status is true), console.log().
+                // If not, remove the 'token' cookie, and navigate to the "/login" route.
+            } catch (error) {
+                console.log("Error verifying cookie:", error);
                 navigate("/login");
             }
-            
-            const { data } = await axios.post(
-                "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
-                {},
-                { withCredentials: true }
-            );
-            
-            const { status, user } = data;
-            setUserId(user._id);
-            return status
-                ? userId
-                : (removeCookie("token"), navigate("/login"));
-            };
+        };
 
         verifyCookie();
 
