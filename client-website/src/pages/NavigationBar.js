@@ -50,6 +50,12 @@ export default function NavigationBar() {
 
       <Navbar className="bg-body-tertiary">
         <Container>
+        <Nav.Link as={Link} to="/Calendar" className="nav-link">Calendar</Nav.Link>
+        </Container>
+      </Navbar>
+
+      <Navbar className="bg-body-tertiary">
+        <Container>
         <Nav.Link as={Link} to="/Social" className="nav-link">Social</Nav.Link>
         </Container>
       </Navbar>

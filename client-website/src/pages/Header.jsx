@@ -2,7 +2,8 @@ import React from 'react';
 import header_jumbotron_bg from "./header_jumbotron_bg.jpg";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Login from './Login.jsx';
+import Login from './Login'; 
+
 
 function Header() {
   return (

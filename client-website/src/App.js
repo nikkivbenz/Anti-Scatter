@@ -4,7 +4,7 @@ import './Website.css';
 
 import { Route, Routes } from 'react-router-dom';
 import { Login, Signup, Home } from "./pages";
-import { Header, NavigationBar, Dashboard, Feedback, FAQ , Settings, StartSession, ToDoList, Allowlist, Blocklist, BlockSchedule, Social } from "./pages";
+import { Header, NavigationBar, Dashboard, Feedback, FAQ , Settings, StartSession, ToDoList, Allowlist, Blocklist, BlockSchedule, Social, Calendar } from "./pages";
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -37,6 +37,7 @@ function App() {
               <Route path ="/startsession" element={<StartSession/>} />
               <Route path ="/todolist" element={<ToDoList/>} />
               <Route path ="/social" element={<Social/>} />
+              <Route path="/Calendar" element={<Calendar/>} /> 
             </Routes>
           </Col>
         </Row>
