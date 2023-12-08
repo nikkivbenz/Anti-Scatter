@@ -8,7 +8,6 @@ import { ToastContainer, toast } from "react-toastify";
 
 const BlockSchedule = () => {
     const navigate = useNavigate();
-    const [cookies, removeCookie] = useCookies([]);
     const [userId, setUserId] = useState("");
     const [schedules, setSchedules] = useState([]);
     const [newSchedule, setNewSchedule] = useState({
@@ -33,17 +32,17 @@ const BlockSchedule = () => {
     
     const fetchSchedules = useCallback(async () => {
         try {
-          const response = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/blockschedule/${userId}`);
-          const schedulesArray = Object.values(response.data.blockSchedule);
-          setSchedules(schedulesArray);
+            const response = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/blockschedule/${userId}`);
+            const schedulesArray = Object.values(response.data.blockSchedule);
+            setSchedules(schedulesArray);
         } catch (error) {
-          console.log('Error fetching schedules:', error);
+            console.log('Error fetching schedules:', error);
         }
-      }, [userId]); // Add any dependencies of fetchSchedules here
+        }, [userId]); // Add any dependencies of fetchSchedules here
     
-      useEffect(() => {
+    useEffect(() => {
         if (userId) {
-          fetchSchedules();
+            fetchSchedules();
         }
       }, [userId, fetchSchedules]); // fetchSchedules is now stable and won't cause unnecessary re-executions
     
@@ -64,7 +63,7 @@ const BlockSchedule = () => {
         
                 const { status, user } = data;
                 setUserId(user._id);
-                // Set the 'username' state with the user's name from the response.
+                // Set the 'userid' state with the user's ID from the response.
         
                 return status
                     ? console.log(`Verified ${user.username}!`)
@@ -82,7 +81,7 @@ const BlockSchedule = () => {
         if (userId) {
             fetchSchedules();
         }
-    }, [cookies, navigate, removeCookie, userId, fetchSchedules]); // Trigger the fetch when the component mounts
+    }, [navigate, userId, fetchSchedules]); // Trigger the fetch when the component mounts
 
     // Sets the 'isCreatingSchedule' state to true and reveals the form for creating a new schedule
     const handleCreateSchedule = () => {
