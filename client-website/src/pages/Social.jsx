@@ -15,18 +15,20 @@ function Social() {
     const getFriends = async () => {
         try{
             // Fetch friends data from the backend
-            var { data: friendsData } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/${userId}`);
-            setFriends(Object.values(friendsData.friendships));
+            var { data } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/${userId}`);
+            setFriends(Object.values(data.friendships));
+
+            // Fetch friend requests data from the backend
+            var { data } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/request/received/${userId}`);
+            setFriendRequests(Object.values(data.friendRequests));
             
-            var { data: receivedData } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/request/received/${userId}`);
-            setFriendRequests(Object.values(receivedData.friendRequests));
-            
-            var { data: sentData } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/request/sent/${userId}`);
-            setSentRequests(Object.values(sentData.friendRequests));
+            var { data } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/request/sent/${userId}`);
+            setSentRequests(Object.values(data.friendRequests));
         } catch (error) {
             console.log("Error getting data:", error);
         }
     };
+
 
 
     useEffect(() => {
