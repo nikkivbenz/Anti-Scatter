@@ -1,3 +1,4 @@
+//Written by Katherine Hernandez
 import React, { useState } from 'react';
 
 //We will manually add the Release Notes when needed here 
