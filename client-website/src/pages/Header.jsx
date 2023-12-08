@@ -11,6 +11,9 @@ function Header() {
     <div className="main-title h2" s>Anti-Scatter: Release your Productivity!</div>
     <div className="jumbotron" style={{ backgroundImage: `url(${header_jumbotron_bg})` }}>
 
+    {/* Google Translate Element */}
+    <div id="google_translate_element" style={{ position: 'absolute', top: 0, right: 0, zIndex: 1000 }}></div>
+
 
   {/* TODO: add the logic to check if there is a user signed in. if there is a user, 
   change the text of this button to be 'HI, user!' else have it show the login button to the login page */}

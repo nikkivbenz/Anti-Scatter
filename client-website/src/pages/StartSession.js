@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,20 +12,52 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import  ButtonGroup  from 'react-bootstrap/ButtonGroup';
 
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 function StartSession() {
-
-
+    // const [data, setData] = useState([]);
     let navigate = useNavigate();
+
+    useEffect(() => {
+        const verifyCookie = async () => {
+            try {
+                const storedToken = localStorage.getItem("token");
+                if (!storedToken) {
+                    navigate("/login");
+                    return;
+                }
+
+                const { data } = await axios.post(
+                    "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+                    { token: storedToken }
+                );
+
+                if (!data.status) {
+                    localStorage.removeItem("token");
+                    navigate("/login");
+                }
+
+                navigate('/startsession')
+            } catch (error) {
+                console.error("Error verifying cookie:", error);
+                navigate("/login");
+            }
+        };
+
+        verifyCookie();
+    }, [navigate]);
+
 
     const handleConfirm = () => {
     // Close the modal
     handleClose();
 
     // Navigate to Timer page
-    navigate('/Timer', { state: { hours, minutes } });
+
+    console.log('Hours:', hours, 'Minutes:', minutes);
+
+    // Add this in Timer at the beginning of the component
+
+    navigate('/Timer', { state: { hours: hours.toString(), minutes: minutes.toString() } });
     };
 
   const [minutes, setMinutes] = useState('00');
@@ -47,18 +82,28 @@ function StartSession() {
   };
 
   const sendDataToServer = async (minutes, hours, blockingMethod) => {
-  try {
-    const response = await axios.post("/api/start-session", {
-      minutes,
-      hours,
-      blockingMethod,
-      userID
-    });
-    console.log(response.data);
-  } catch (error) {
-    console.error(error);
-  }
-};
+    // Convert hours and minutes to numbers to ensure they are not strings
+    const numHours = parseInt(hours, 10);
+    const numMinutes = parseInt(minutes, 10);
+  
+    // You may want to check if the conversion is successful
+    if (isNaN(numHours) || isNaN(numMinutes)) {
+      console.error('Invalid input for hours or minutes');
+      return;
+    }
+  
+    try {
+      const response = await axios.post("/api/start-session", {
+        minutes: numMinutes,
+        hours: numHours,
+        blockingMethod,
+        userID
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
  
 
@@ -73,7 +118,7 @@ function StartSession() {
         <Row  id = 'session-rows' className="justify-content-center timer-display">
             <Col xs={4} className="text-center timer-segment">
             <Form.Control
-                type="text"
+                type="number"
                 className="timer-input"
                 value={hours}
                 onChange={onHoursChange}
@@ -82,7 +127,7 @@ function StartSession() {
             </Col>
             <Col xs={4} className="text-center timer-segment">
             <Form.Control
-                type="text"
+                type="number"
                 className="timer-input"
                 value={minutes}
                 onChange={onMinutesChange}

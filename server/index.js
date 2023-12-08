@@ -9,6 +9,9 @@ const authRoute = require('./routes/AuthRoute');
 const friendRoute = require('./routes/FriendRoute');
 const blockScheduleRoute = require('./routes/BlockScheduleRoute');
 
+
+console.log(process.env.WEBPAGE_URL);
+
 mongoose
     .connect(process.env.MONGO_URL, {
         useNewUrlParser: true,
@@ -23,7 +26,7 @@ app.listen(process.env.PORT || 4000, () => {
 
 app.use(
     cors({
-        origin: [process.env.WEBPAGE_URL, "https://localhost:3000"],
+        origin:  '*',
         methods: ["GET", "POST", "PUT", "DELETE"],
         credentials: true,
     })
@@ -36,3 +39,4 @@ app.use(express.json());
 app.use("/", authRoute);
 app.use("/friends", friendRoute);
 app.use("/blockschedule", blockScheduleRoute);
+

@@ -1,6 +1,6 @@
 // BlockSchedule page
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
@@ -20,17 +20,33 @@ const BlockSchedule = () => {
     });
     const [isCreatingSchedule, setIsCreatingSchedule] = useState(false);
 
-    // Fetch the schedules from the database
-    const fetchSchedules = async () => {
+    // // Fetch the schedules from the database
+    // const fetchSchedules = async () => {
+    //     try {
+    //         const response = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/blockschedule/${userId}`);
+    //         const schedulesArray = Object.values(response.data.blockSchedule);
+    //         setSchedules(schedulesArray);
+    //     } catch (error) {
+    //         console.log('Error fetching schedules:', error);
+    //     }
+    // };
+    
+    const fetchSchedules = useCallback(async () => {
         try {
-            const response = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/blockschedule/${userId}`);
-            const schedulesArray = Object.values(response.data.blockSchedule);
-            setSchedules(schedulesArray);
+          const response = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/blockschedule/${userId}`);
+          const schedulesArray = Object.values(response.data.blockSchedule);
+          setSchedules(schedulesArray);
         } catch (error) {
-            console.log('Error fetching schedules:', error);
+          console.log('Error fetching schedules:', error);
         }
-    };
-
+      }, [userId]); // Add any dependencies of fetchSchedules here
+    
+      useEffect(() => {
+        if (userId) {
+          fetchSchedules();
+        }
+      }, [userId, fetchSchedules]); // fetchSchedules is now stable and won't cause unnecessary re-executions
+    
     // Check if the user is logged in
     useEffect(() => {
         const verifyCookie = async () => {
