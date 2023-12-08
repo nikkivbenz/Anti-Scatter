@@ -33,7 +33,7 @@ const Login = () => {
                 { withCredentials: true}
             );
             console.log(data);
-            const { success, message, token } = data;
+            const { success, token } = data;
             
             if (success) {
                 localStorage.setItem("token", token);

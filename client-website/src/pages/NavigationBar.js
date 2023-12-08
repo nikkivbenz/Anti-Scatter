@@ -6,7 +6,6 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
-import logo from './anti_scatter_logo.png'; 
 
 export default function NavigationBar() {
   return (

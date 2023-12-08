@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -12,23 +12,30 @@ function Social() {
     const [userId, setUserId] = useState(""); // React state for storing the username
     const [friendInput, setFriendInput] = useState("");
 
-    const getFriends = async () => {
+    const getFriends = useCallback(async () => {
         try{
-            // Fetch friends data from the backend
-            var { data } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/${userId}`);
-            setFriends(Object.values(data.friendships));
+            // // Fetch friends data from the backend
+            // var { data } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/${userId}`);
+            // setFriends(Object.values(data.friendships));
 
-            // Fetch friend requests data from the backend
-            var { data } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/request/received/${userId}`);
-            setFriendRequests(Object.values(data.friendRequests));
+            // // Fetch friend requests data from the backend
+            // var { data } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/request/received/${userId}`);
+            // setFriendRequests(Object.values(data.friendRequests));
             
-            var { data } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/request/sent/${userId}`);
-            setSentRequests(Object.values(data.friendRequests));
+            // var { data } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/request/sent/${userId}`);
+            // setSentRequests(Object.values(data.friendRequests));
+
+            var { data: friendsData } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/${userId}`);
+            setFriends(Object.values(friendsData.friendships));
+
+            var { data: receivedData } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/request/received/${userId}`);
+            setFriendRequests(Object.values(receivedData.friendRequests));
+
+            var { data: sentData } = await axios.get(`https://anti-scatter-36f9c5f65c17.herokuapp.com/friends/request/sent/${userId}`);
+            setSentRequests(Object.values(sentData.friendRequests));
         } catch (error) {
             console.log("Error getting data:", error);
-        }
-    };
-
+        }}, [userId]);
 
 
     useEffect(() => {
