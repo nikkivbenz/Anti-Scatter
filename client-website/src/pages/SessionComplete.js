@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Jumbotron, Container } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 function SessionComplete() {
@@ -12,7 +12,7 @@ function SessionComplete() {
 
   return (
     <Container className="mt-5">
-      <Jumbotron className="text-center bg-transparent">
+      <Card className="text-center bg-transparent">
         <h1 className="display-3">Congratulations!</h1>
         <p className="lead">You've completed your session!</p>
         <hr className="my-4" />
@@ -22,7 +22,7 @@ function SessionComplete() {
             Continue
           </Button>
         </p>
-      </Jumbotron>
+      </Card>
     </Container>
   );
 }

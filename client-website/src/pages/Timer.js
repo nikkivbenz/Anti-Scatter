@@ -6,6 +6,9 @@ import ToDoList from './ToDoList';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+
+import { useNavigate } from 'react-router-dom';
 
 
 function Timer({ hours, minutes }) {
@@ -21,6 +24,13 @@ function Timer({ hours, minutes }) {
 
     return () => clearInterval(intervalId);
   }, [secondsLeft]);
+  let navigate = useNavigate();
+
+  const endSession = () => {
+
+    navigate('/SessionComplete');
+  }
+
 
   const formatTime = () => {
     const hrs = Math.floor(secondsLeft / 3600);
@@ -28,6 +38,7 @@ function Timer({ hours, minutes }) {
     const secs = secondsLeft % 60;
     return `${hrs}:${mins}:${secs}`;
   };
+
 
   return (
     <Container> 
