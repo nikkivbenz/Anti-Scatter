@@ -8,7 +8,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
+
 import { useNavigate, useLocation } from 'react-router-dom';
+import MusicPlayer from './MusicPlayer';
+
 
 
 function Timer() {
@@ -64,8 +67,12 @@ function Timer() {
                 <Button variant="danger" onClick={endSession}>End Session</Button>
             </Col> 
     </Row> 
-
-    <ToDoList /> 
+{/*I placed a div here in order to create spacing between the Music Player and the ToDo List*/}
+    <div style={{ marginBottom: '20px' }}>
+    <ToDoList />
+    </div>
+    <MusicPlayer/>
+ 
     </Container>
   );
 
