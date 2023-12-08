@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Calendar from 'react-calendar';
+import {Calendar as DefaultCalendar } from 'react-calendar';
 import { gapi } from 'gapi-script';
 import 'react-calendar/dist/Calendar.css'; // Importing the default styling from react-calendar
 
@@ -12,8 +12,8 @@ const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v
 
 // Which parts of the user's Google account I want to access
 const SCOPES = "https://www.googleapis.com/auth/calendar.events.readonly";
-
-const CalendarComponent = () => {
+//function
+const Calendar = () => {
     const [events, setEvents] = useState([]);
     const [useGoogleCalendar, setUseGoogleCalendar] = useState(false);
     const [date, setDate] = useState(new Date());
@@ -77,7 +77,7 @@ const CalendarComponent = () => {
                 </ul>
             );
         } else {
-            return <Calendar onChange={setDate} value={date} />;
+            return <DefaultCalendar onChange={setDate} value={date} />;
         }
     };
 
@@ -93,7 +93,7 @@ const CalendarComponent = () => {
     );
 };
 
-export default CalendarComponent;
+export default Calendar;
 
 
     //function Calendar() {
