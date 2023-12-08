@@ -1,13 +1,18 @@
-
-
 import React from 'react';
 
 const MusicPlayer = () => {
     
     const playlistId = 'PLXIclLvfETS3AgCnZg4N6QqHu_T27XKIq';
 
+    const playerStyle = {
+        boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', // Shadow effect
+        borderRadius: '10px', // Rounded corners
+        overflow: 'hidden',
+        margin: '20px 0' // Adds some margin to the top and bottom
+    }; 
+
     return (
-        <div>
+        <div style={playerStyle}>
             <iframe
                 width="100%"
                 height="315"
@@ -26,12 +31,7 @@ export default MusicPlayer;
 
 
 
-
-
-
-
-
-
+//Will work on Spotify if have time, youtube music player works well
 //Youtube and Spotify 
 // //Temporary placement of Music Player
 // import React, { useState } from 'react';
