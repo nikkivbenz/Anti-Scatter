@@ -21,7 +21,7 @@ const TodoList = () => {
     // Check for due tasks and show notifications
     tasks.forEach((task) => {
       const dueDateObj = new Date(task.dueDate);
-      const currentDate = new Date.now();
+      const currentDate = new Date();
 
       if (
         dueDateObj.getFullYear() === currentDate.getFullYear() &&
