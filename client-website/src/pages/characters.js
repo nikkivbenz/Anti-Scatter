@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import './YourComponentStyles.css';
+import './CharacterStyles.css';
+//import { characters } from '.';
 
-const CharacterFeature = () => {
+const Characters = () => {
     // State to manage user level, earned characters, and chosen character
     const [userLevel, setUserLevel] = useState(1);
     const [earnedCharacters, setEarnedCharacters] = useState(0);
@@ -62,5 +63,5 @@ const CharacterFeature = () => {
     );
 };
 
-export default CharacterFeature;
+export default Characters;
 
