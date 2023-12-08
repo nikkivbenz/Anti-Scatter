@@ -3,7 +3,6 @@ import "./Website.css";
 
 import { Route, Routes } from "react-router-dom";
 import { Login, Signup, Home } from "./pages";
-<<<<<<< HEAD
 import {
   Header,
   NavigationBar,
@@ -18,13 +17,6 @@ import {
   Social,
   Calendar,
 } from "./pages";
-=======
-import { Header, NavigationBar, Dashboard, Feedback, FAQ , Settings, StartSession, ToDoList, Blocklist, BlockSchedule, Social, Calendar, Timer, SessionComplete} from "./pages";
-
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
->>>>>>> f0b0895ba395a6067f10919b67d1cc24b2d8c051
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -52,7 +44,7 @@ function App() {
               <Route path="/settings" element={<Settings />} />
               <Route path="/blocklist" element={<Blocklist />} />
               <Route path="/startsession" element={<StartSession />} />
-              <Route path="/ToDoList" element={<ToDoList />} />
+              <Route path="/TodoList" element={<ToDoList />} />
               <Route path="/social" element={<Social />} />
               <Route path="/Calendar" element={<Calendar />} />
             </Routes>
