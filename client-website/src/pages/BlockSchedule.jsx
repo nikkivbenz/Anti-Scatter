@@ -34,22 +34,32 @@ const BlockSchedule = () => {
     // Check if the user is logged in
     useEffect(() => {
         const verifyCookie = async () => {
-            if (!cookies.token) {
+            try {
+                const storedToken = localStorage.getItem("token");
+                if (!storedToken) {
+                    navigate("/login");
+                    // Navigate to the "/login" route. 'navigate' is used to change the route.
+                }
+        
+                const { data } = await axios.post(
+                    "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+                    {token: storedToken}
+                );
+        
+                const { status, user } = data;
+                setUserId(user._id);
+                // Set the 'username' state with the user's name from the response.
+        
+                return status
+                    ? console.log(`Verified ${user.username}!`)
+                    : (localStorage.removeItem("token"), navigate("/login"));
+                // If the authentication is successful (status is true), console.log().
+                // If not, remove the 'token' cookie, and navigate to the "/login" route.
+            } catch (error) {
+                console.log("Error verifying cookie:", error);
                 navigate("/login");
             }
-            
-            const { data } = await axios.post(
-                "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
-                {},
-                { withCredentials: true }
-            );
-            
-            const { status, user } = data;
-            setUserId(user._id);
-            return status
-                ? userId
-                : (removeCookie("token"), navigate("/login"));
-            };
+        };
 
         verifyCookie();
 

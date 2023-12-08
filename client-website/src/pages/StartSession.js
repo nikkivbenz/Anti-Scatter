@@ -7,14 +7,23 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import Table from 'react-bootstrap/Table';
 import  ButtonGroup  from 'react-bootstrap/ButtonGroup';
 
 import axios from 'axios';
-
-
+import { useNavigate } from 'react-router-dom';
 
 function StartSession() {
+
+
+    let navigate = useNavigate();
+
+    const handleConfirm = () => {
+    // Close the modal
+    handleClose();
+
+    // Navigate to Timer page
+    navigate('/Timer', { state: { hours, minutes } });
+    };
 
   const [minutes, setMinutes] = useState('00');
   const [hours, setHours] = useState('00');
@@ -110,7 +119,7 @@ function StartSession() {
         </Row> 
 
     </Container> 
-
+{/* 
     <Container>
         <Table striped bordered hover>
         <thead>
@@ -152,7 +161,7 @@ function StartSession() {
             </tr>
         </tbody>
         </Table>
-    </Container>
+    </Container> */}
     <Container > 
         <Row> 
             <Col className= "d-flex justify-content-center align-items-center"> 
@@ -178,16 +187,14 @@ function StartSession() {
             <Modal.Title>Study session Details</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            - time
-            - tags
-            - allowlist, blocklist or block by theme
-
+            <p><strong>Time:</strong> {hours} hours and {minutes} minutes</p>
+                <p><strong>Blocking Method:</strong> {active === 'blocklist' ? 'Blocklist' : active === 'blockByTheme' ? 'Block By Theme' : 'None'}</p>
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
                 Cancel
             </Button>
-            <Button variant="primary">Confirm</Button>
+            <Button variant="primary" onClick={handleConfirm}>Confirm</Button>
             </Modal.Footer>
         </Modal>
     </Container>
