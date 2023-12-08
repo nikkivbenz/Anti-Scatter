@@ -29,6 +29,7 @@ function Social() {
         }
     };
 
+
     useEffect(() => {
         const verifyCookie = async () => {
             try {
@@ -60,7 +61,7 @@ function Social() {
 
         verifyCookie();
         getFriends();
-    }, [userId, navigate]);
+    }, [userId, navigate, getFriends]);
 
     const sendFriendRequest = async () => {
         try {
