@@ -3,6 +3,7 @@ import "./Website.css";
 
 import { Route, Routes } from "react-router-dom";
 import { Login, Signup, Home } from "./pages";
+
 import {
   Header,
   NavigationBar,
@@ -17,8 +18,10 @@ import {
   Social,
   Calendar,
   Timer, 
-  SessionComplete
+  SessionComplete,
+  ReleaseNotes
 } from "./pages";
+
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -41,6 +44,8 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/blockschedule" element={<BlockSchedule />} />
               <Route path="/dashboard" element={<Dashboard />} />
+
+
               <Route path="/feedback" element={<Feedback />} />
               <Route path="/FAQ" element={<FAQ />} />
               <Route path="/settings" element={<Settings />} />
@@ -51,6 +56,8 @@ function App() {
               <Route path="/Calendar" element={<Calendar />} />
               <Route path="/Timer" element={<Timer />} />
               <Route path="/SessionComplete" element={<SessionComplete />} />
+              <Route path="/ReleaseNotes" element={<ReleaseNotes/>} /> 
+
             </Routes>
           </Col>
         </Row>
