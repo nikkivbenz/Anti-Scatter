@@ -4,21 +4,24 @@
 
 // Function to check for the authentication token cookie
 async function checkForAuthenticationCookie() {
-  const response = await fetch("http://localhost:4000/", {
+  const response = await fetch(
+    "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+    {
       method: "POST",
       credentials: "include",
-  });
+    }
+  );
 
   if (response.ok) {
-      const data = await response.json();
+    const data = await response.json();
 
-      if (data.status === true) {
-          return true;
-      } else {
-          return false;
-      }
+    if (data.status === true) {
+      return true;
+    } else {
+      return false;
+    }
   } else {
-      throw new Error("Error fetching authentication status");
+    throw new Error("Error fetching authentication status");
   }
 }
 
@@ -26,13 +29,13 @@ async function checkForAuthenticationCookie() {
 const isUserLoggedIn = checkForAuthenticationCookie();
 
 isUserLoggedIn
-  .then(result => {
-      const userAuth = result;
-      // Communicate with the background script to send the login status
-      chrome.runtime.sendMessage({ userAuth });
+  .then((result) => {
+    const userAuth = result;
+    // Communicate with the background script to send the login status
+    chrome.runtime.sendMessage({ userAuth });
   })
-  .catch(error => {
-      console.error(error);
+  .catch((error) => {
+    console.error(error);
   });
 
 var currentURL = window.location.href;
@@ -46,9 +49,9 @@ chrome.runtime.sendMessage({ blockScheduleUpdate: true });
 chrome.storage.local.get(["blockScheduleSites"], function (result) {
   const sites = result.blockScheduleSites || [];
   // Remove the "www." prefix if it exists
-  const normalizedURL = domain.replace(/^www\./, '');
+  const normalizedURL = domain.replace(/^www\./, "");
   if (sites.includes(normalizedURL)) {
-      window.location.href = chrome.runtime.getURL("../popup/block.html");
+    window.location.href = chrome.runtime.getURL("../popup/block.html");
   }
 
   chrome.runtime.sendMessage({ blockScheduleUpdate: true });
@@ -98,6 +101,5 @@ chrome.storage.local.get(["sites"], function (result) {
     blackout();
   }
 });
-
 
 /*---------------------------------------------------------------------------------------------------------------------*/
