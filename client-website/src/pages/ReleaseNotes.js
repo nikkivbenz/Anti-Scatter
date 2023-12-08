@@ -59,6 +59,8 @@ const ReleaseNotes = () => {
 
 
   return (
+    //main container for the release notes
+    // Displaying the version and release date for the new release
     <div className="release-notes">
       <h2>New Release</h2>
       <div className="new-release">
