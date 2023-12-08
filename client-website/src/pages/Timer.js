@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 import { useNavigate } from 'react-router-dom';
+import MusicPlayer from './MusicPlayer';
 
 
 function Timer({ hours, minutes }) {
@@ -58,7 +59,7 @@ function Timer({ hours, minutes }) {
                 <Button variant="danger" onClick={endSession}>End Session</Button>
             </Col> 
     </Row> 
-
+    <MusicPlayer />
     <ToDoList /> 
     </Container>
   );

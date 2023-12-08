@@ -1,11 +1,4 @@
-// function MusicPlayer() {
-//     return(
-//         <h1> i am in Music Player Example </h1> 
-//     )
-// };
 
-//export default MusicPlayer; 
-//PLXIclLvfETS3AgCnZg4N6QqHu_T27XKIq
 
 import React from 'react';
 

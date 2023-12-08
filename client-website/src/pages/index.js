@@ -16,5 +16,4 @@ export {default as Social} from './Social';
 export {default as Calendar} from './Calendar'; 
 export {default as Timer} from './Timer'; 
 export {default as SessionComplete} from './SessionComplete'; 
-export {default as MusicPlayer} from './MusicPlayer'; 
 
