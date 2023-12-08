@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 //We will manually add the Release Notes when needed here 
 const ReleaseNotes = () => {
   //December Release
-  const [newRelease, setNewRelease] = useState({
+  const [newRelease] = useState({
     version: '1.0.0',
     releaseDate: 'December 8, 2023',
     features: [
@@ -15,7 +15,7 @@ const ReleaseNotes = () => {
   });
 
   //November Release
-  const [previousReleases, setPreviousReleases] = useState([
+  const [previousReleases] = useState([
     {
       version: '0.8.0',
       releaseDate: 'November 1, 2023',
