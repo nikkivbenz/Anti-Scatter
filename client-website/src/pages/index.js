@@ -14,4 +14,6 @@ export {default as ToDoList} from './ToDoList';
 export {default as Blocklist} from './Blocklist'; 
 export {default as Social} from './Social'; 
 export {default as Calendar} from './Calendar'; 
+export {default as Timer} from './Timer'; 
+export {default as SessionComplete} from './SessionComplete'; 
 
