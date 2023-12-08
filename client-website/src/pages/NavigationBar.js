@@ -74,6 +74,11 @@ export default function NavigationBar() {
         </Container>
       </Navbar>
 
+      <Navbar className="bg-body-tertiary">
+        <Container>
+        <Nav.Link as={Link} to="/MusicPlayer" className="nav-link">Music Player</Nav.Link>
+        </Container>
+        </Navbar>
 
       <Navbar className="bg-body-tertiary">
         <Container>

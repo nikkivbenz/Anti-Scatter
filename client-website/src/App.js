@@ -9,6 +9,7 @@ import {
   Dashboard,
   Feedback,
   FAQ,
+  MusicPlayer,
   Settings,
   StartSession,
   ToDoList,
@@ -43,6 +44,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/feedback" element={<Feedback />} />
               <Route path="/FAQ" element={<FAQ />} />
+              <Route path="/MusicPlayer" element={<MusicPlayer />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/blocklist" element={<Blocklist />} />
               <Route path="/startsession" element={<StartSession />} />
