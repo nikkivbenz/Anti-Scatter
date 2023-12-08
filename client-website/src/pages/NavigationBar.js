@@ -89,7 +89,7 @@ export default function NavigationBar() {
 
       <Navbar className="bg-body-tertiary" >
         <Container>
-        <Nav.Link as={Link} to="/ReleaseNotes" className="nav-link">ReleaseNotes</Nav.Link>
+        <Nav.Link as={Link} to="/ReleaseNotes" className="nav-link">Release Notes</Nav.Link>
         </Container>
       </Navbar>
       </div>  
