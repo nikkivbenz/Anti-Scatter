@@ -15,13 +15,13 @@ import {
   ToDoList,
   Blocklist,
   BlockSchedule,
+  BlockByTheme,
   Social,
   Calendar,
-  Timer, 
+  Timer,
   SessionComplete,
-  ReleaseNotes
+  ReleaseNotes,
 } from "./pages";
-
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -54,8 +54,8 @@ function App() {
               <Route path="/Calendar" element={<Calendar />} />
               <Route path="/Timer" element={<Timer />} />
               <Route path="/SessionComplete" element={<SessionComplete />} />
-              <Route path="/ReleaseNotes" element={<ReleaseNotes/>} /> 
-
+              <Route path="/ReleaseNotes" element={<ReleaseNotes />} />
+              <Route path="/BlockByTheme" element={<BlockByTheme />} />
             </Routes>
           </Col>
         </Row>
