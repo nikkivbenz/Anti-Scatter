@@ -1,6 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import './CharacterStyles.css';
-//import { characters } from '.';
+
+// Importing character images
+import character1 from './Character_Images/character1.png';
+import character2 from './Character_Images/character2.png';
+import character3 from './Character_Images/character3.png';
+import character4 from './Character_Images/character4.png';
+import character5 from './Character_Images/character5.png';
+import character6 from './Character_Images/character6.png';
+import character7 from './Character_Images/character7.png';
+import character8 from './Character_Images/character8.png';
+import character9 from './Character_Images/character9.png';
+
+// Mapping character numbers to their respective images
+const characterImages = {
+    1: character1,
+    2: character2,
+    3: character3,
+    4: character4,
+    5: character5,
+    6: character6,
+    7: character7,
+    8: character8,
+    9: character9,
+};
 
 const Characters = () => {
     // State to manage user level, earned characters, and chosen character
@@ -10,7 +33,7 @@ const Characters = () => {
 
     useEffect(() => {
         // Calculation logic
-        const studyHours = 24;
+        const studyHours = 130; // Replace with actual data
         const hoursPerLevel = 24;
         const charactersPerLevel = 1;
         
@@ -44,7 +67,7 @@ const Characters = () => {
                 <div id="character-list">
                     {[...Array(earnedCharacters)].map((_, i) => (
                         <div className="character" key={i} onClick={() => handleCharacterClick(i + 1)}>
-                            <img src={`characters/character${i + 1}.png`} alt={`Character ${i + 1}`} />
+                            <img src={characterImages[i + 1]} alt={`Character ${i + 1}`} />
                         </div>
                     ))}
                 </div>
@@ -54,7 +77,7 @@ const Characters = () => {
             {chosenCharacter && (
                 <div id="chosen-character-info">
                     <p>You have chosen the following character:</p>
-                    <img className="chosen-character-image" src={`Character_Images/character${chosenCharacter}.png`} alt={`Character ${chosenCharacter}`} />
+                    <img className="chosen-character-image" src={characterImages[chosenCharacter]} alt={`Character ${chosenCharacter}`} />
                     <p>Earned at Level: {userLevel}</p>
                     <button onClick={() => setChosenCharacter(null)}>Return to Character Page</button>
                 </div>
@@ -64,4 +87,5 @@ const Characters = () => {
 };
 
 export default Characters;
+
 
