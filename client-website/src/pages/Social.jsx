@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Characters from './characters'; //Importing the Characters Component
 
 function Social() {
     const navigate = useNavigate(); // React Router's hook for programmatic navigation
@@ -68,6 +69,7 @@ function Social() {
         };
 
         verifyCookie();
+        //setUserId("katherinestacyh"); //Setting a static userId for testing
         getFriends();
     }, [userId, navigate, getFriends]);
 
@@ -240,6 +242,7 @@ function Social() {
                 </div>
                 )}
             </div>
+            <Characters />
         </div>
     );
 }

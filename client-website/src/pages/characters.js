@@ -76,10 +76,10 @@ const Characters = () => {
             {/* Chosen Character Display */}
             {chosenCharacter && (
                 <div id="chosen-character-info">
-                    <p>You have chosen the following character:</p>
+                    <p>Congrats on your characters!</p>
                     <img className="chosen-character-image" src={characterImages[chosenCharacter]} alt={`Character ${chosenCharacter}`} />
-                    <p>Earned at Level: {userLevel}</p>
-                    <button onClick={() => setChosenCharacter(null)}>Return to Character Page</button>
+                    <p>Congrats on making it to level: {userLevel} ! </p>
+                    <button onClick={() => setChosenCharacter(null)}>Minimize Character</button>
                 </div>
             )}
         </div>
