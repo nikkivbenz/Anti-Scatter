@@ -1,6 +1,29 @@
 // content.js
+import axios from "axios";
 
 /*------------------------------------------------ User Authentication -----------------------------------------------*/
+
+const checkUserAuth = async () => {
+  try {
+      const storedToken = localStorage.getItem("token");
+
+      const { data } = await axios.post(
+          "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+          {token: storedToken}
+      );
+
+      const { status, user } = data;
+
+      return status
+          ? console.log(`Verified ${user.username} for extension!`, true)
+          : (localStorage.removeItem("token"), false);
+      // If the authentication is successful (status is true), console.log().
+      // If not, remove the 'token' cookie, and navigate to the "/login" route.
+  } catch (error) {
+      console.log("Error verifying cookie:", error);
+      navigate("/login");
+  }
+};
 
 // Function to check for the authentication token cookie
 async function checkForAuthenticationCookie() {
