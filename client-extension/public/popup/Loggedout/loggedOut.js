@@ -7,4 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
       url: "https://boisterous-biscotti-c124c9.netlify.app/login",
     }); // Replace with your login URL
   });
+
+  // Add a click event listener to the "beans" button
+  const beansButton = document.getElementById("beans");
+  beansButton.addEventListener("click", function () {
+    console.log(localStorage);
+  });
 });

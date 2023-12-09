@@ -15,7 +15,38 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.blockScheduleUpdate) {
     updateBlockScheduleStorage();
   }
+
+  // if token message is recieved, change to logged in status
+  if (request.token) {
+    chrome.storage.local.set({ token: request.token }, function () {
+      console.log("Token is set to " + request.token);
+    });
+    chrome.action.setPopup({
+      popup: "popup/quickblock/quickblock.html",
+    });
+  }
+
+  if (request.blockedSites) {
+    chrome.storage.local.get(["blockedSites"], function (result) {
+      var sites = result.blockedSites || [];
+      sites.push(request.blockedSites);
+
+      chrome.storage.local.set({ blockedSites: sites }, function () {
+        console.log("Blocked sites have been updated");
+      });
+    });
+  }
 });
+
+chrome.storage.local.get("token", function (data) {
+  if (data) {
+    console.log("bruh ");
+    chrome.action.setPopup({
+      popup: "popup/quickblock/quickblock.html",
+    });
+  }
+});
+// ...
 
 /*---------------------------------------------------------------------------------------------------------------------*/
 
