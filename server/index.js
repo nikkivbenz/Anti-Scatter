@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const authRoute = require('./routes/AuthRoute');
 const friendRoute = require('./routes/FriendRoute');
 const blockScheduleRoute = require('./routes/BlockScheduleRoute');
+const blockListRoute = require('./routes/BlockListRoute');
 
 
 console.log(process.env.WEBPAGE_URL);
@@ -39,4 +40,4 @@ app.use(express.json());
 app.use("/", authRoute);
 app.use("/friends", friendRoute);
 app.use("/blockschedule", blockScheduleRoute);
-
+app.use("/blocklist", blockListRoute);

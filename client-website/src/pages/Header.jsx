@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import header_jumbotron_bg from "./header_jumbotron_bg.jpg";
 import Button from 'react-bootstrap/Button';
@@ -51,7 +51,6 @@ function Header() {
   const [quote, setQuote] = useState("");
   const [quoteAuthor, setQuoteAuthor] = useState("");
   const [quoteDate, setQuoteDate] = useState('');
-  const [isQuoteRefreshing, setIsQuoteRefreshing] = useState(false); 
 
   useEffect(() => {
     // Check if a stored quote exists for today
@@ -80,18 +79,12 @@ function Header() {
         setQuote(newQuote);
         setQuoteAuthor(newQuoteAuthor);
         setQuoteDate(new Date().toLocaleDateString());
-        setIsQuoteRefreshing(false);
 
         // Store the new quote in local storage
         localStorage.setItem('quoteOfTheDay', newQuote);
         localStorage.setItem('quoteAuthor', newQuoteAuthor);
         localStorage.setItem('quoteDate', new Date().toLocaleDateString());
       });
-  };
-
-  const refreshQuote = () => {
-    setIsQuoteRefreshing(true);
-    fetchQuoteOfTheDay();
   };
 
   const handleLogin = () => {

@@ -44,8 +44,6 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/blockschedule" element={<BlockSchedule />} />
               <Route path="/dashboard" element={<Dashboard />} />
-
-
               <Route path="/feedback" element={<Feedback />} />
               <Route path="/FAQ" element={<FAQ />} />
               <Route path="/settings" element={<Settings />} />
