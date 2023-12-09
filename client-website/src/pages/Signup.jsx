@@ -35,6 +35,7 @@ const Signup = () => {
             localStorage.setItem("token", token);
             setTimeout(() => {
                 navigate("/");
+                window.location.reload();
             }, 1000);
         } 
 
