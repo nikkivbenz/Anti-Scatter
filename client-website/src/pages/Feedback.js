@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
-import Header from "./Header"; 
 
 
 const Feedback = () => {
@@ -12,7 +11,7 @@ const Feedback = () => {
   // Modify your handleSubmit function
 const handleSubmit = async (event) => {
     try {
-      const response = await axios.post('http://localhost:5000/submit_feedback', {
+      const response = await axios.post('http://nkbenz.pythonanywhere.com/api/submit_feedback', {
         name,
         email,
         message
@@ -34,9 +33,9 @@ const handleSubmit = async (event) => {
 
   return (
     <div id="content"> 
-    <Container id="main-content">
+    <Container >
       <Row>
-        <Col md={{ span: 6, offset: 3 }}>
+        <Col id="feedbackform" >
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="feedbackForm.Name">
               <Form.Label>Name</Form.Label>

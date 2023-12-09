@@ -36,7 +36,7 @@
   
 
 .App {
-   /* background-image: url(./pages/header_background.jpeg);*/
+    /* background-image: url(./pages/header_background.jpeg);*/
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh; /* This sets the height to the full viewport height */
@@ -95,3 +95,15 @@
         color:white;
         font-size: 12px;
     }
+
+  #loginColumn {
+    padding:0.5rem;
+  }
+
+  #loginlabel {
+    padding-right: 1rem; 
+  }
+
+  #feedbackform {
+    justify-content: center;
+  }
