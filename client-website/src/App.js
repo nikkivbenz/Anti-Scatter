@@ -1,3 +1,6 @@
+import React, { useContext } from 'react';
+import { ThemeProvider, ThemeContext } from './ThemeContext';
+
 import "./App.css";
 import "./Website.css";
 
@@ -29,8 +32,10 @@ import Col from "react-bootstrap/Col";
 
 // This app is the main component of the application. It is responsible for rendering the routes of the application.
 function App() {
+  const {theme } = useContext(ThemeContext);
+
   return (
-    <div className="App">
+    <div className={`App ${theme}`}> {/* Changed this to backticks */}
       <Container>
         <Header />
         <Row>
@@ -66,4 +71,8 @@ function App() {
   );
 }
 
-export default App;
+export default () => (
+  <ThemeProvider>
+    <App />
+  </ThemeProvider>
+);
