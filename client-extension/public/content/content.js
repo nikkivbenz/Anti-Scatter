@@ -1,87 +1,113 @@
 // content.js
 let WEBSITE = "localhost";
-// let WEBSITE = "boisterous-biscotti-c124c9";
-if (window.location.hostname === WEBSITE) {
-  console.log("we here");
-  if (localStorage.getItem("token")) {
-    // Send runtime message with the token
-
-    chrome.runtime.sendMessage({ token: localStorage.getItem("token") });
-    // ...
-
-    // Send runtime message with the contents of localStorage["blockedSites"]
-    chrome.runtime.sendMessage({
-      blockedSites: localStorage.getItem("blockedSites"),
-    });
-
-    // ...
-  }
-} else {
-  chrome.storage.local.get(["sites"], function (result) {
-    var sites = result.sites || [];
-
-    if (sites.includes(domain)) {
-      console.log("bruh");
-    }
-  });
-}
-
-/*------------------------------------------------ User Authentication -----------------------------------------------*/
-
-// Function to check for the authentication token cookie
-async function checkForAuthenticationCookie() {
-  const response = await fetch(
-    "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
-    {
-      method: "POST",
-      credentials: "include",
-    }
-  );
-
-  if (response.ok) {
-    const data = await response.json();
-
-    if (data.status === true) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    throw new Error("Error fetching authentication status");
-  }
-}
-
-// Check for the authentication token cookie
-const isUserLoggedIn = checkForAuthenticationCookie();
-
-isUserLoggedIn
-  .then((result) => {
-    const userAuth = result;
-    // Communicate with the background script to send the login status
-    chrome.runtime.sendMessage({ userAuth });
-  })
-  .catch((error) => {
-    console.error(error);
-  });
 
 var currentURL = window.location.href;
 var url = new URL(currentURL);
 var domain = url.hostname;
 chrome.runtime.sendMessage({ blockScheduleUpdate: true });
 
+
+// let WEBSITE = "boisterous-biscotti-c124c9";
+
+
+
+if (window.location.hostname === WEBSITE) {
+  console.log("we here");
+  if (localStorage.getItem("token")) {
+    // Send runtime message with the token
+    
+    chrome.runtime.sendMessage({ token: localStorage.getItem("token") }, console.log("token sent"));
+    // ...
+    let bs = localStorage.getItem("blockedSites");
+    bs = JSON.parse(bs);
+    console.log(bs);
+    // Send runtime message with the contents of localStorage["blockedSites"]
+    chrome.runtime.sendMessage({ blockedSites:bs }, console.log("sites sent"));
+
+    // ...
+  }
+} else {
+ console.log("we not here");
+ var currentURL = window.location.href;
+ var url = new URL(currentURL);
+ 
+ // Extract the domain from the URL
+ var currentDomain = url.hostname;
+ currentDomain = currentDomain.replace("www.", "");
+  console.log("current domain is:",currentDomain);
+
+  chrome.storage.local.get(["blockedSites"], function(result) {
+    var sites = result.blockedSites || [];
+    console.log("sites are:",sites);
+    // Check each site in blockedSites
+    for (let site of sites) {
+      // Extract the domain from the site URL
+      let siteDomain = new URL(site).hostname;
+      siteDomain = siteDomain.replace("%2A.", "");
+      console.log("site domain is:",siteDomain);
+      // If the current domain matches the site domain, render block.html
+      if (siteDomain === currentDomain) {
+        blackout()
+        break;
+      }
+    }
+  });
+
+}
+
+/*------------------------------------------------ User Authentication -----------------------------------------------*/
+
+// Function to check for the authentication token cookie
+// async function checkForAuthenticationCookie() {
+//   const response = await fetch(
+//     "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+//     {
+//       method: "POST",
+//       credentials: "include",
+//     }
+//   );
+
+//   if (response.ok) {
+//     const data = await response.json();
+
+//     if (data.status === true) {
+//       return true;
+//     } else {
+//       return false;
+//     }
+//   } else {
+//     throw new Error("Error fetching authentication status");
+//   }
+// }
+
+// // Check for the authentication token cookie
+// const isUserLoggedIn = checkForAuthenticationCookie();
+
+// isUserLoggedIn
+//   .then((result) => {
+//     const userAuth = result;
+//     // Communicate with the background script to send the login status
+//     chrome.runtime.sendMessage({ userAuth });
+//   })
+//   .catch((error) => {
+//     console.error(error);
+//   });
+
+
+
 /*---------------------------------------------------------------------------------------------------------------------*/
 
 // Function to block websites
-chrome.storage.local.get(["blockScheduleSites"], function (result) {
-  const sites = result.blockScheduleSites || [];
-  // Remove the "www." prefix if it exists
-  const normalizedURL = domain.replace(/^www\./, "");
-  if (sites.includes(normalizedURL)) {
-    window.location.href = chrome.runtime.getURL("../popup/block.html");
-  }
+// chrome.storage.local.get(["blockScheduleSites"], function (result) {
+//   const sites = result.blockScheduleSites || [];
+//   // Remove the "www." prefix if it exists
+//   const normalizedURL = domain.replace(/^www\./, "");
+//   if (sites.includes(normalizedURL)) {
+//     window.location.href = chrome.runtime.getURL("../popup/block.html");
+//   }
 
-  chrome.runtime.sendMessage({ blockScheduleUpdate: true });
-});
+//   chrome.runtime.sendMessage({ blockScheduleUpdate: true });
+// });
 
 function blackout() {
   Array.from(document.body.children).forEach((child) => {
@@ -115,17 +141,17 @@ function blackout() {
   document.body.appendChild(cover);
 }
 
-var currentURL = window.location.href;
-var url = new URL(currentURL);
-var domain = url.hostname;
+// var currentURL = window.location.href;
+// var url = new URL(currentURL);
+// var domain = url.hostname;
 
-// if url is in chrome.local sites, execute blackout
-chrome.storage.local.get(["sites"], function (result) {
-  var sites = result.sites || [];
+// // if url is in chrome.local sites, execute blackout
+// chrome.storage.local.get(["blockedSites"], function (result) {
+//   var sites = result.sites || [];
 
-  if (sites.includes(domain)) {
-    blackout();
-  }
-});
+//   if (sites.includes(domain)) {
+//     blackout();
+//   }
+// });
 
 /*---------------------------------------------------------------------------------------------------------------------*/

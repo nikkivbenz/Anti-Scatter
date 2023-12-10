@@ -2,15 +2,15 @@
 
 //Listen for messages from the content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.userAuth) {
-    // The user is logged in, so set popup to the home page
-    chrome.action.setPopup({ popup: "popup/Home/homePage.html" });
+  // if (request.userAuth) {
+  //   // The user is logged in, so set popup to the home page
+  //   chrome.action.setPopup({ popup: "popup/Home/homePage.html" });
 
-    updateBlockScheduleStorage();
-  } else {
-    // The user is not logged in, so set popup to the logged out page
-    chrome.action.setPopup({ popup: "popup/loggedOut/loggedOut.html" });
-  }
+  //   updateBlockScheduleStorage();
+  // } else {
+  //   // The user is not logged in, so set popup to the logged out page
+  //   chrome.action.setPopup({ popup: "popup/loggedOut/loggedOut.html" });
+  // }
 
   if (request.blockScheduleUpdate) {
     updateBlockScheduleStorage();
@@ -29,8 +29,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.blockedSites) {
     chrome.storage.local.get(["blockedSites"], function (result) {
       var sites = result.blockedSites || [];
-      sites.push(request.blockedSites);
-
+  
+      // Iterate over each site in request.blockedSites
+      request.blockedSites.forEach(function(site) {
+        // If the site is not already in the stored sites, add it
+        if (!sites.includes(site)) {
+          sites.push(site);
+        }
+      });
+  
+      // Store the updated sites array back in local storage
       chrome.storage.local.set({ blockedSites: sites }, function () {
         console.log("Blocked sites have been updated");
       });
@@ -51,63 +59,63 @@ chrome.storage.local.get("token", function (data) {
 /*---------------------------------------------------------------------------------------------------------------------*/
 
 // Fetch blocked websites from the backend
-async function fetchUserId() {
-  // Get the user ID from the authentication token cookie
-  try {
-    const response = await fetch(
-      "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
-      {
-        method: "POST",
-        credentials: "include",
-      }
-    );
+// async function fetchUserId() {
+//   // Get the user ID from the authentication token cookie
+//   try {
+//     const response = await fetch(
+//       "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+//       {
+//         method: "POST",
+//         credentials: "include",
+//       }
+//     );
 
-    const userdata = await response.json();
-    return userdata.user._id;
-  } catch (error) {
-    console.error(error);
-  }
-}
+//     const userdata = await response.json();
+//     return userdata.user._id;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
 /*---------------------------------------------------------------------------------------------------------------------*/
 
 // Update the blocked websites in the storage
-async function updateBlockScheduleStorage() {
-  try {
-    var userId = await fetchUserId();
+// async function updateBlockScheduleStorage() {
+//   try {
+//     var userId = await fetchUserId();
 
-    const currentDate = new Date();
-    const currentDay = getDayName(currentDate);
+//     const currentDate = new Date();
+//     const currentDay = getDayName(currentDate);
 
-    const response = await fetch(
-      `https://anti-scatter-36f9c5f65c17.herokuapp.com/${userId}/${currentDay}`,
-      {
-        method: "GET",
-        credentials: "include",
-      }
-    );
+//     const response = await fetch(
+//       `https://anti-scatter-36f9c5f65c17.herokuapp.com/${userId}/${currentDay}`,
+//       {
+//         method: "GET",
+//         credentials: "include",
+//       }
+//     );
 
-    const blockedSites = (await response.json()).blockSchedule;
+//     const blockedSites = (await response.json()).blockSchedule;
 
-    chrome.storage.local.get(["blockScheduleSites"], function (result) {
-      var sites = [];
+//     chrome.storage.local.get(["blockScheduleSites"], function (result) {
+//       var sites = [];
 
-      blockedSites.forEach((blockedSite) => {
-        if (isTimeWithinTimeFrame(blockedSite.timeFrame)) {
-          var domain = extractHostname(blockedSite.website);
+//       blockedSites.forEach((blockedSite) => {
+//         if (isTimeWithinTimeFrame(blockedSite.timeFrame)) {
+//           var domain = extractHostname(blockedSite.website);
 
-          sites.push(domain);
-        }
-      });
+//           sites.push(domain);
+//         }
+//       });
 
-      chrome.storage.local.set({ blockScheduleSites: sites }, function () {
-        console.log(`${domain} has been added to the block schedule`);
-      });
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}
+//       chrome.storage.local.set({ blockScheduleSites: sites }, function () {
+//         console.log(`${domain} has been added to the block schedule`);
+//       });
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
 // Helper function to extract the hostname from a URL
 function extractHostname(url) {
