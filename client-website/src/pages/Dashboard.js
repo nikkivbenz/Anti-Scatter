@@ -1,5 +1,8 @@
-import React, {Component} from 'react'; 
+import React  from 'react'; 
 import axios from 'axios'; 
+
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
@@ -7,10 +10,6 @@ import Grid from '@mui/material/Unstable_Grid2';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
-
-
-
 
 import {
   BarChart,
@@ -28,19 +27,9 @@ import {
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
 
 function TotalStudyTime() {
   return (
@@ -50,7 +39,7 @@ function TotalStudyTime() {
           Total Study Time
         </Typography>
         <Typography variant="body2">
-          157 minutes
+          157 minutes 
         </Typography>
       </CardContent>
     </Card>
@@ -197,47 +186,63 @@ function ScoreCards() {
     );
   }
 
+  const Dashboard = () => {
+    // const [data, setData] = useState([]);
+    const navigate = useNavigate();
 
-class Dashboard extends Component{ 
-    state = {
-        data: [], 
-    }; 
+    useEffect(() => {
+        const verifyCookie = async () => {
+            try {
+                const storedToken = localStorage.getItem("token");
+                if (!storedToken) {
+                    navigate("/login");
+                    return;
+                }
 
-    componentDidMount() {
-        axios.get('http://localhost:4000/api/hello')
-        .then(response => {
-            this.setState({data: response.data.message}); 
-        })
-        .catch(error => {
-            console.error('Error: ', error)
-        }); 
-    }
+                const { data } = await axios.post(
+                    "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+                    { token: storedToken }
+                );
 
-render()
-{
-    const {data} = this.state; 
-    return(
-        <>
-        <div class="container p-0" id="content">
-        <ScoreCards/> 
-        <div className="body-text"> 
+                if (!data.status) {
+                    localStorage.removeItem("token");
+                    navigate("/login");
+                }
 
+                // Fetch dashboard data if token is valid
+                navigate('/dashboard')
+            } catch (error) {
+                console.error("Error verifying cookie:", error);
+                navigate("/login");
+            }
+        };
 
-            {/* <TotalStudyTime />  */}
-        
-        <br/>
-          <Row>
-            <Col xs={6}> <BarGraph /></Col>
-            <Col xs={6}> <PieChart1 /> </Col>
-          </Row>
-          
-    
+        verifyCookie();
+    }, [navigate]);
 
-        </div>
-        </div>
-        </>
-    );
+    // const fetchData = () => {
+    //     axios.get('http://localhost:4000/api/hello')
+    //         .then(response => {
+    //             setData(response.data.message);
+    //         })
+    //         .catch(error => {
+    //             console.error('Error: ', error);
+    //         });
+    // };   
+    return (
+      <>
+          <div className="container p-0" id="content">
+              <ScoreCards />
+              <div className="body-text">
+                  <br />
+                  <Row>
+                      <Col xs={6}> <BarGraph /></Col>
+                      <Col xs={6}> <PieChart1 /> </Col>
+                  </Row>
+              </div>
+          </div>
+      </>
+  );
 }
-}
 
-export default Dashboard; 
+export default Dashboard;

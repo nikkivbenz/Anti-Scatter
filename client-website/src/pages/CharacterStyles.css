@@ -1,0 +1,112 @@
+/*Unique styles for the Characters*/ 
+
+/* Reset some default styles for consistency */
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* Set font to Arial */
+}
+
+/* Header Style */
+header {
+    text-align: center;
+    background-color: #394ff5d5;
+    color: rgb(255, 255, 255);
+    padding: 20px;
+    font-size: 24px;
+    font-family: Arial, sans-serif; /* Set font to Arial */
+}
+
+/* Using a container for better centering and control */
+#social-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #b6cfd5; /* background behind the container */
+    border-radius: 9px; /* round corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    font-family: Arial, sans-serif; /* Set font to Arial */
+}
+
+/* Style the "Your Progress" section */
+#level-info {
+    border: 1px solid #ddd;
+    padding: 20px; /* Increased padding for better spacing */
+    margin-bottom: 20px;
+    background-color: white; /* white background color for the entire section */
+    border-radius: 10px; /* Rounded corners to the entire section */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    text-align: center; /* Center text content */
+    font-family: Arial, sans-serif; /* Set font to Arial */
+}
+
+#user-level {
+    font-size: 22px;
+    color: #2d954c;
+}
+
+/* Style the "Character Level" title */
+#character-level {
+    font-size: 24px; /* Adjust font size to match the other section headers */
+    margin-bottom: 10px; /* Add spacing between title and level number */
+    color: rgb(5, 2, 34); /* Match the text color of other section headers */
+    font-family: Arial, sans-serif; /* Set font to Arial */
+}
+
+/* Section Styling */
+#level-info, #choose-character {
+    border: 1px solid #ddd;
+    padding: 20px; /* added this for better spacing */
+    margin-bottom: 20px;
+    background-color: white; /* white background color for sections */
+    border-radius: 8px;
+    font-family: Arial, sans-serif; /* Set font to Arial */
+}
+
+#level-info h2 {
+    margin-bottom: 10px; /* spacing */
+}
+
+#earned-characters {
+    font-size: 22px;
+    color: #2d954c;
+}
+
+/* Used flexbox for character list */
+#character-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center characters horizontally */
+}
+
+/* Character card styles */
+.character {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    background-color: #f0f0f0;
+    text-align: center;
+    line-height: 100px;
+    border-radius: 50%; /* Created circular characters */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+    font-family: Arial, sans-serif; /* Set font to Arial */
+}
+
+.character img {
+    max-width: 100px;
+}
+
+.character:hover {
+    transform: scale(1.1); /* Enlarges the character on hover */
+}
+
+/* Additional styling for the chosen character page */
+.chosen-character-image {
+    max-width: 150px; /* Adjust the width to your desired size */
+    max-height: 150px; /* Adjust the height to your desired size */
+    display: block; /* Ensures the image is centered */
+    margin: 0 auto; /* Centers the image horizontally */
+}

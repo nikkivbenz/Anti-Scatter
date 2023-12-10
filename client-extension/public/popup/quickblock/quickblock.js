@@ -1,146 +1,93 @@
 // popup.js
 
-// Event listener for every button
-// Each button event will reload the page to reflect the changes
-
 document.getElementById("block").addEventListener("click", function () {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        var activeTab = tabs[0];
-    
-        chrome.scripting
-            .executeScript({
-                target: { tabId: activeTab.id },
-                function: block,
-            })
-            .then(() => {
-                chrome.tabs.reload();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    });
+  executeScriptAndReload(block);
 });
 
 document.getElementById("unblock").addEventListener("click", function () {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        var activeTab = tabs[0];
-        chrome.scripting
-            .executeScript({
-                target: { tabId: activeTab.id },
-                function: unBlock,
-            })
-            .then(() => {
-                chrome.tabs.reload();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    });
+  executeScriptAndReload(unBlock);
 });
 
 document.getElementById("clear").addEventListener("click", function () {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        var activeTab = tabs[0];
-        chrome.scripting
-            .executeScript({
-                target: { tabId: activeTab.id },
-                function: clearLocalStorage,
-            })
-            .then(() => {
-                chrome.tabs.reload();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    });
+  executeScriptAndReload(clearLocalStorage);
 });
 
-// Add an event listener to the chrome.storage.onChanged event. Updates list on extension.
-chrome.storage.onChanged.addListener(function (changes, namespace) {
-    if (changes.sites) {
-        updateBlockedSites();
-    }
+// Add an event listener to the window.onstorage event. Updates list on extension.
+window.addEventListener("storage", function (event) {
+  if (event.key === "sites") {
+    updateBlockedSites();
+  }
 });
 
-// get ul element by id blocked sites, and when a site is added to local storage, add a li element with the site name to the ul element
+function executeScriptAndReload(scriptFunction) {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    var activeTab = tabs[0];
+    chrome.scripting
+      .executeScript({
+        target: { tabId: activeTab.id },
+        function: scriptFunction,
+      })
+      .then(() => {
+        chrome.tabs.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+}
+
 function updateBlockedSites() {
-    chrome.storage.local.get(["sites"], function (result) {
-        var sites = result.sites || [];
+  var sites = JSON.parse(localStorage.getItem("sites")) || [];
+  var ul = document.getElementById("blocked-sites");
+  ul.innerHTML = "";
 
-        var ul = document.getElementById("blocked-sites");
-        ul.innerHTML = "";
-    
-        sites.forEach(function (site) {
-            var li = document.createElement("li");
-            li.textContent = site;
-            ul.appendChild(li);
-        });
-    });
+  sites.forEach(function (site) {
+    var li = document.createElement("li");
+    li.textContent = site;
+    ul.appendChild(li);
+  });
 }
 
 function block() {
-    // get url from window
-    var currentURL = window.location.href;
-    // convert url to a URL object
-    var url = new URL(currentURL);
-    // Extract the domain from the URL hostname property
-    var domain = url.hostname;
+  var currentURL = window.location.href;
+  var url = new URL(currentURL);
+  var domain = url.hostname;
 
-    // Retrieve the current value of "sites" from local storage
-    chrome.storage.local.get(["sites"], function (result) {
-        var sites = result.sites || [];
+  var sites = JSON.parse(localStorage.getItem("sites")) || [];
 
-        //if chrome storage has a sites array and the domain is already in the array, return
-        if (sites.includes(domain)) {
-            console.log("Domain already exists in storage.local:", domain);
-            return;
-        }
+  if (sites.includes(domain)) {
+    console.log("Domain already exists in localStorage:", domain);
+    return;
+  }
 
-        // Add the new domain to the existing sites array
-        sites.push(domain);
-
-        // Set the updated value of "sites" back to local storage
-        chrome.storage.local.set({ sites: sites }, function () {
-            console.log("Domain added to storage.local:", domain);
-        });
-    });
+  sites.push(domain);
+  localStorage.setItem("sites", JSON.stringify(sites));
+  console.log("Domain added to localStorage:", domain);
 }
 
 function unBlock() {
-    // get url from window
-    var currentURL = window.location.href;
-    // convert url to a URL object
-    var url = new URL(currentURL);
-    // Extract the domain from the URL hostname property
-    var domain = url.hostname;
+  var currentURL = window.location.href;
+  var url = new URL(currentURL);
+  var domain = url.hostname;
 
-    // Retrieve the current value of "sites" from local storage
-    chrome.storage.local.get(["sites"], function (result) {
-        var sites = result.sites || [];
+  var sites = JSON.parse(localStorage.getItem("sites")) || [];
 
-        // If the domain is not in the sites array, return
-        if (!sites.includes(domain)) {
-            console.log("Domain not found in storage.local:", domain);
-            return;
-        }
+  if (!sites.includes(domain)) {
+    console.log("Domain not found in localStorage:", domain);
+    return;
+  }
 
-        // Remove the domain from the sites array
-        sites = sites.filter(function (site) {
-            return site !== domain;
-        });
+  sites = sites.filter(function (site) {
+    return site !== domain;
+  });
 
-        // Set the updated value of "sites" back to local storage
-        chrome.storage.local.set({ sites: sites }, function () {
-            console.log("Domain removed from storage.local:", domain);
-        });
-    });
+  localStorage.setItem("sites", JSON.stringify(sites));
+  console.log("Domain removed from localStorage:", domain);
 }
 
 function clearLocalStorage() {
-    chrome.storage.local.clear(sites, function () {
-        console.log("Local storage (sites) cleared.");
-    });
+  localStorage.removeItem("sites");
+  console.log("localStorage (sites) cleared.");
 }
 
-// Call the function once to populate the list on page load
 updateBlockedSites();

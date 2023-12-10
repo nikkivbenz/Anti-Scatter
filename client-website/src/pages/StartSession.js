@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -7,17 +10,60 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import Table from 'react-bootstrap/Table';
 import  ButtonGroup  from 'react-bootstrap/ButtonGroup';
-
-import axios from 'axios';
-
 
 
 function StartSession() {
+    // const [data, setData] = useState([]);
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        const verifyCookie = async () => {
+            try {
+                const storedToken = localStorage.getItem("token");
+                if (!storedToken) {
+                    navigate("/login");
+                    return;
+                }
+
+                const { data } = await axios.post(
+                    "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+                    { token: storedToken }
+                );
+
+                if (!data.status) {
+                    localStorage.removeItem("token");
+                    navigate("/login");
+                }
+
+                navigate('/startsession')
+            } catch (error) {
+                console.error("Error verifying cookie:", error);
+                navigate("/login");
+            }
+        };
+
+        verifyCookie();
+    }, [navigate]);
+
+
+    const handleConfirm = () => {
+    // Close the modal
+    handleClose();
+
+    // Navigate to Timer page
+
+    console.log('Hours:', hours, 'Minutes:', minutes);
+
+    // Add this in Timer at the beginning of the component
+
+    navigate('/Timer', { state: { hours: hours.toString(), minutes: minutes.toString() } });
+    };
 
   const [minutes, setMinutes] = useState('00');
   const [hours, setHours] = useState('00');
+
+  const userID = "test1"; 
 
   const onMinutesChange = (e) => setMinutes(e.target.value);
   const onHoursChange = (e) => setHours(e.target.value);
@@ -31,6 +77,32 @@ function StartSession() {
 
   const handleClick = (buttonName) => {
     setActive(buttonName);
+    // Send data to Flask server
+    sendDataToServer(minutes, hours, buttonName);
+  };
+
+  const sendDataToServer = async (minutes, hours, blockingMethod) => {
+    // Convert hours and minutes to numbers to ensure they are not strings
+    const numHours = parseInt(hours, 10);
+    const numMinutes = parseInt(minutes, 10);
+  
+    // You may want to check if the conversion is successful
+    if (isNaN(numHours) || isNaN(numMinutes)) {
+      console.error('Invalid input for hours or minutes');
+      return;
+    }
+  
+    try {
+      const response = await axios.post("/api/start-session", {
+        minutes: numMinutes,
+        hours: numHours,
+        blockingMethod,
+        userID
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
  
@@ -46,7 +118,7 @@ function StartSession() {
         <Row  id = 'session-rows' className="justify-content-center timer-display">
             <Col xs={4} className="text-center timer-segment">
             <Form.Control
-                type="text"
+                type="number"
                 className="timer-input"
                 value={hours}
                 onChange={onHoursChange}
@@ -55,7 +127,7 @@ function StartSession() {
             </Col>
             <Col xs={4} className="text-center timer-segment">
             <Form.Control
-                type="text"
+                type="number"
                 className="timer-input"
                 value={minutes}
                 onChange={onMinutesChange}
@@ -77,12 +149,7 @@ function StartSession() {
                 >
                 Blocklist
                 </Button>{' '}
-                <Button  id='toggle-buttons'
-                variant={active === 'allowlist' ? 'success' : 'danger'}
-                onClick={() => handleClick('allowlist')}
-                >
-                Allowlist
-                </Button>{' '}
+
                 <Button  id='toggle-buttons'
                 variant={active === 'blockByTheme' ? 'success' : 'danger'}
                 onClick={() => handleClick('blockByTheme')}
@@ -97,7 +164,7 @@ function StartSession() {
         </Row> 
 
     </Container> 
-
+{/* 
     <Container>
         <Table striped bordered hover>
         <thead>
@@ -139,13 +206,19 @@ function StartSession() {
             </tr>
         </tbody>
         </Table>
-    </Container>
+    </Container> */}
     <Container > 
         <Row> 
             <Col className= "d-flex justify-content-center align-items-center"> 
-        <Button  variant="primary" onClick={handleShow}>
-            Start Session
-        </Button> 
+            <Button
+                variant="primary"
+                onClick={() => {
+                    handleShow();
+                    sendDataToServer(minutes, hours, active);
+                }}
+                >
+                Start Session
+            </Button>
         </Col>
         </Row> 
 
@@ -159,16 +232,14 @@ function StartSession() {
             <Modal.Title>Study session Details</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            - time
-            - tags
-            - allowlist, blocklist or block by theme
-
+            <p><strong>Time:</strong> {hours} hours and {minutes} minutes</p>
+                <p><strong>Blocking Method:</strong> {active === 'blocklist' ? 'Blocklist' : active === 'blockByTheme' ? 'Block By Theme' : 'None'}</p>
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
                 Cancel
             </Button>
-            <Button variant="primary">Confirm</Button>
+            <Button variant="primary" onClick={handleConfirm}>Confirm</Button>
             </Modal.Footer>
         </Modal>
     </Container>
