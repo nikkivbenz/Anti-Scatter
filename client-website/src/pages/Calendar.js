@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar as DefaultCalendar } from 'react-calendar';
 import { gapi } from 'gapi-script';
+import axios from 'axios'; 
+import { useNavigate } from 'react-router-dom';
 import 'react-calendar/dist/Calendar.css';
 
 const CLIENT_ID = '111482971289803426523';
@@ -10,6 +12,38 @@ const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v
 const SCOPES = "https://www.googleapis.com/auth/calendar.events.readonly";
 
 const Calendar = () => {
+
+    let navigate = useNavigate();
+  
+    useEffect(() => {
+        const verifyCookie = async () => {
+            try {
+                const storedToken = localStorage.getItem("token");
+                if (!storedToken) {
+                    navigate("/login");
+                    return;
+                }
+  
+                const { data } = await axios.post(
+                    "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+                    { token: storedToken }
+                );
+  
+                if (!data.status) {
+                    localStorage.removeItem("token");
+                    navigate("/login");
+                }
+  
+                navigate('/settings')
+            } catch (error) {
+                console.error("Error verifying cookie:", error);
+                navigate("/login");
+            }
+        };
+  
+        verifyCookie();
+    }, [navigate]);
+
     const [events, setEvents] = useState([]);
     const [localEvents, setLocalEvents] = useState([]);
     const [useGoogleCalendar, setUseGoogleCalendar] = useState(false);

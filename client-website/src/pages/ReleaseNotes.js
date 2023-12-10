@@ -1,8 +1,40 @@
 //Written by Katherine Hernandez
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 //We will manually add the Release Notes when needed here 
 const ReleaseNotes = () => {
+  let navigate = useNavigate();
+  
+  useEffect(() => {
+      const verifyCookie = async () => {
+          try {
+              const storedToken = localStorage.getItem("token");
+              if (!storedToken) {
+                  navigate("/login");
+                  return;
+              }
+
+              const { data } = await axios.post(
+                  "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+                  { token: storedToken }
+              );
+
+              if (!data.status) {
+                  localStorage.removeItem("token");
+                  navigate("/login");
+              }
+
+              navigate('/settings')
+          } catch (error) {
+              console.error("Error verifying cookie:", error);
+              navigate("/login");
+          }
+      };
+
+      verifyCookie();
+  }, [navigate]);
   //December Release
   const [newRelease] = useState({
     version: '1.0.0',

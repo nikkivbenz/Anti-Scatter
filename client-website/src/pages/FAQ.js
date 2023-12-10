@@ -1,6 +1,43 @@
+//Written by Katherine Hernandez
+import React, { useEffect } from 'react'; // Import useEffect
 import Accordion from 'react-bootstrap/Accordion';
+import axios from 'axios'; 
+import { useNavigate } from 'react-router-dom';
+
 
 function FAQ() {
+
+  let navigate = useNavigate();
+  
+  useEffect(() => {
+      const verifyCookie = async () => {
+          try {
+              const storedToken = localStorage.getItem("token");
+              if (!storedToken) {
+                  navigate("/login");
+                  return;
+              }
+
+              const { data } = await axios.post(
+                  "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+                  { token: storedToken }
+              );
+
+              if (!data.status) {
+                  localStorage.removeItem("token");
+                  navigate("/login");
+              }
+
+              navigate('/settings')
+          } catch (error) {
+              console.error("Error verifying cookie:", error);
+              navigate("/login");
+          }
+        };
+  
+        verifyCookie();
+    }, [navigate]);
+      
   return (
     <> 
     <div id="content"> 

@@ -1,9 +1,42 @@
-import React, { useState } from 'react';
+//Written by Katherine Hernandez
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const Feedback = () => {
+  let navigate = useNavigate();
+  
+  useEffect(() => {
+      const verifyCookie = async () => {
+          try {
+              const storedToken = localStorage.getItem("token");
+              if (!storedToken) {
+                  navigate("/login");
+                  return;
+              }
+
+              const { data } = await axios.post(
+                  "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+                  { token: storedToken }
+              );
+
+              if (!data.status) {
+                  localStorage.removeItem("token");
+                  navigate("/login");
+              }
+
+              navigate('/settings')
+          } catch (error) {
+              console.error("Error verifying cookie:", error);
+              navigate("/login");
+          }
+      };
+
+      verifyCookie();
+  }, [navigate]);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
