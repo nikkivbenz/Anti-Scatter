@@ -1,0 +1,1 @@
+[Latest release here](https://github.com/nikkivbenz/Anti-Scatter/releases/tag/Release)

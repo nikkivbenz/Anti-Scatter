@@ -1,5 +1,5 @@
 // content.js
-let WEBSITE = "localhost";
+
 
 var currentURL = window.location.href;
 var url = new URL(currentURL);
@@ -7,7 +7,7 @@ var domain = url.hostname;
 chrome.runtime.sendMessage({ blockScheduleUpdate: true });
 
 
-// let WEBSITE = "boisterous-biscotti-c124c9";
+let WEBSITE = "boisterous-biscotti-c124c9";
 
 
 

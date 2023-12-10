@@ -83,22 +83,21 @@ const BlockByTheme = () => {
             }
           : theme
       );
-
+  
       // Update local storage with blocked sites
       const blockedThemes = updatedThemes
         .filter((theme) => theme.checked)
         .map((theme) => theme.name);
       const blockedSites = updatedThemes
-        .flatMap((theme) => theme.sites.filter((site) => site.checked))
+        .flatMap((theme) => theme.checked ? theme.sites.filter((site) => site.checked) : [])
         .map((site) => site.url);
-
+  
       localStorage.setItem("blockedThemes", JSON.stringify(blockedThemes));
       localStorage.setItem("blockedSites", JSON.stringify(blockedSites));
-
+  
       return updatedThemes;
     });
   };
-
   return (
     <div>
       <h1>Block By Theme</h1>

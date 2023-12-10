@@ -27,21 +27,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 
   if (request.blockedSites) {
-    chrome.storage.local.get(["blockedSites"], function (result) {
-      var sites = result.blockedSites || [];
-  
-      // Iterate over each site in request.blockedSites
-      request.blockedSites.forEach(function(site) {
-        // If the site is not already in the stored sites, add it
-        if (!sites.includes(site)) {
-          sites.push(site);
-        }
-      });
-  
-      // Store the updated sites array back in local storage
-      chrome.storage.local.set({ blockedSites: sites }, function () {
-        console.log("Blocked sites have been updated");
-      });
+    // Store request.blockedSites directly in local storage
+    chrome.storage.local.set({ blockedSites: request.blockedSites }, function () {
+      console.log("Blocked sites have been updated");
     });
   }
 });
