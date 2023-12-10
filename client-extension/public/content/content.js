@@ -1,4 +1,30 @@
 // content.js
+let WEBSITE = "localhost";
+// let WEBSITE = "boisterous-biscotti-c124c9";
+if (window.location.hostname === WEBSITE) {
+  console.log("we here");
+  if (localStorage.getItem("token")) {
+    // Send runtime message with the token
+
+    chrome.runtime.sendMessage({ token: localStorage.getItem("token") });
+    // ...
+
+    // Send runtime message with the contents of localStorage["blockedSites"]
+    chrome.runtime.sendMessage({
+      blockedSites: localStorage.getItem("blockedSites"),
+    });
+
+    // ...
+  }
+} else {
+  chrome.storage.local.get(["sites"], function (result) {
+    var sites = result.sites || [];
+
+    if (sites.includes(domain)) {
+      console.log("bruh");
+    }
+  });
+}
 
 /*------------------------------------------------ User Authentication -----------------------------------------------*/
 

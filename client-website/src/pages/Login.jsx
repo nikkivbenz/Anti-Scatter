@@ -29,8 +29,7 @@ const Login = () => {
                 "https://anti-scatter-36f9c5f65c17.herokuapp.com/login",
                 {
                 ...inputValue,
-                },
-                { withCredentials: true}
+                }
             );
             console.log(data);
             const { success, token } = data;
