@@ -107,3 +107,51 @@
   #feedbackform {
     justify-content: center;
   }
+/* These :root CSS variables I defined here for the light and dark themes are essential
+for changing the colors based on the theme*/
+  :root {
+    /* Light theme colors */
+    --primary-color-light: #fff;
+    --secondary-color-light: #f8f8f8;
+    --text-color-light: #333;
+
+    /* Dark theme colors */
+    --primary-color-dark: #181818;
+    --secondary-color-dark: #282828;
+    --text-color-dark: #ddd;
+}
+/*Wrote the following in order to define styles for elements when the .dark class is applied to App*/
+/* Styles for light theme */
+.App {
+  background-color: var(--primary-color-light);
+  color: var(--text-color-light);
+  /* Other light theme styles */
+}
+
+/* Styles for dark theme */
+.App.dark {
+  background-color: var(--primary-color-dark);
+  color: var(--text-color-dark);
+  /* Other dark theme styles */
+}
+
+
+.App.dark .header-login-btn {
+  background-color: var(--secondary-color-dark); /* Example: Change button background in dark mode */
+  color: var(--text-color-dark); /* Change button text color in dark mode */
+}
+
+
+/* Dark theme styles */
+.App.dark .nav-container .bg-body-tertiary,
+.App.dark .nav-container .bg-body-tertiary .navbar {
+    background-color: var(--primary-color-dark); /* Dark mode background color */
+}
+
+.App.dark .nav-container .nav-link {
+    color: var(--text-color-light); /* Dark mode text color */
+}
+
+.App.dark .nav-container .nav-link:hover {
+    color: #ffffff; /* Hover color in dark mode */
+}
