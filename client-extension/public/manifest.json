@@ -25,5 +25,11 @@
       "matches": ["https://*/*", "http://*/*"],
       "js": ["content/content.js"]
     }
-  ]
+  ],
+  "icons": {
+    "16": "icons/anti_scatter_logo.png",
+    "32": "icons/anti_scatter_logo.png",
+    "48": "icons/anti_scatter_logo.png",
+    "128": "icons/anti_scatter_logo.png"
+  }
 }

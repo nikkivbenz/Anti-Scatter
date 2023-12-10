@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   loginButton.addEventListener("click", function () {
     // Redirect to your login page or another website for login
     chrome.tabs.create({
-      url: "https://boisterous-biscotti-c124c9.netlify.app/login",
+      url: "localhost:3000/login",
     }); // Replace with your login URL
   });
 });

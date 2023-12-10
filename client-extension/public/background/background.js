@@ -1,4 +1,31 @@
 // background.js
+import axios from "axios";
+
+/*------------------------------------------------ User Authentication -----------------------------------------------*/
+const homePageUrl = "http://localhost:3000/"
+
+chrome.tabs.query({ active: true, currentWindow: true, url: homePageUrl }, async function (tabs) {
+  try {
+    console.log("Verifying cookie...");
+    const storedToken = window.localStorage.getItem("token");
+    console.log("Stored token:", storedToken);
+    const { data } = await axios.post(
+      "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+      {token: storedToken}
+    );
+
+    const { status, user } = data;
+
+    const userAuth = status;
+
+    chrome.runtime.sendMessage({ userAuth });
+  } catch (error) {
+    console.log("Error verifying cookie:", error);
+    return false;
+  }
+});
+
+/*---------------------------------------------------------------------------------------------------------------------*/
 
 //Listen for messages from the content script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {

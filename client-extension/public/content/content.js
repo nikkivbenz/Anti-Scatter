@@ -1,65 +1,30 @@
 // content.js
 import axios from "axios";
-
 /*------------------------------------------------ User Authentication -----------------------------------------------*/
+const homePageUrl = "http://localhost:3000/"
 
-const checkUserAuth = async () => {
+chrome.tabs.query({ active: true, currentWindow: true, url: homePageUrl }, async function (tabs) {
   try {
-      const storedToken = localStorage.getItem("token");
+    console.log("Verifying cookie...");
+    const storedToken = window.localStorage.getItem("token");
+    console.log("Stored token:", storedToken);
+    const { data } = await axios.post(
+      "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
+      {token: storedToken}
+    );
 
-      const { data } = await axios.post(
-          "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
-          {token: storedToken}
-      );
+    const { status, user } = data;
 
-      const { status, user } = data;
+    const userAuth = status;
 
-      return status
-          ? console.log(`Verified ${user.username} for extension!`, true)
-          : (localStorage.removeItem("token"), false);
-      // If the authentication is successful (status is true), console.log().
-      // If not, remove the 'token' cookie, and navigate to the "/login" route.
-  } catch (error) {
-      console.log("Error verifying cookie:", error);
-      navigate("/login");
-  }
-};
-
-// Function to check for the authentication token cookie
-async function checkForAuthenticationCookie() {
-  const response = await fetch(
-    "https://anti-scatter-36f9c5f65c17.herokuapp.com/",
-    {
-      method: "POST",
-      credentials: "include",
-    }
-  );
-
-  if (response.ok) {
-    const data = await response.json();
-
-    if (data.status === true) {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    throw new Error("Error fetching authentication status");
-  }
-}
-
-// Check for the authentication token cookie
-const isUserLoggedIn = checkForAuthenticationCookie();
-
-isUserLoggedIn
-  .then((result) => {
-    const userAuth = result;
-    // Communicate with the background script to send the login status
     chrome.runtime.sendMessage({ userAuth });
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+  } catch (error) {
+    console.log("Error verifying cookie:", error);
+    return false;
+  }
+});
+
+/*---------------------------------------------------------------------------------------------------------------------*/
 
 var currentURL = window.location.href;
 var url = new URL(currentURL);

@@ -21,18 +21,16 @@ const Login = () => {
     };
 
     const handleSubmit = async (e) => {
-        console.log("submit")
         e.preventDefault();
         try {
-            console.log(inputValue);
+
             const { data } = await axios.post(
                 "https://anti-scatter-36f9c5f65c17.herokuapp.com/login",
                 {
                 ...inputValue,
-                },
-                { withCredentials: true}
+                }
             );
-            console.log(data);
+
             const { success, token } = data;
             
             if (success) {
