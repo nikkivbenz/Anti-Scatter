@@ -50,6 +50,7 @@ function Timer() {
 
 
   return (
+    <>
     <Container> 
         <Row> 
             <Col> 
@@ -67,13 +68,17 @@ function Timer() {
                 <Button variant="danger" onClick={endSession}>End Session</Button>
             </Col> 
     </Row> 
+    <Row> 
 {/*I placed a div here in order to create spacing between the Music Player and the ToDo List*/}
-    <div style={{ marginBottom: '20px' }}>
+    {/* <div style={{ marginBottom: '20px' }}> */}
     <ToDoList />
-    </div>
+    </Row> 
+    <Row> 
+
     <MusicPlayer/>
- 
+    </Row> 
     </Container>
+    </>
   );
 
 }
