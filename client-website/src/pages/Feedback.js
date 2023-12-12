@@ -27,7 +27,7 @@ const Feedback = () => {
                   navigate("/login");
               }
 
-              navigate('/settings')
+              navigate('/feedback')
           } catch (error) {
               console.error("Error verifying cookie:", error);
               navigate("/login");
