@@ -54,7 +54,7 @@ function StudyStreak() {
           Study Streak
         </Typography>
         <Typography variant="body2">
-          4 days
+          7 days
         </Typography>
       </CardContent>
     </Card>
@@ -78,13 +78,13 @@ function ProductivityScore() {
 
 
 const bargraph_data = [
-    { name: 'Mon', studytime: 4000, amt: 2400 },
-    { name: 'Tue', studytime: 3000, amt: 2210 },
-    { name: 'Wed', studytime: 2000, amt: 2290 },
-    { name: 'Thur', studytime: 2780, amt: 2000 },
-    { name: 'Fri', studytime: 1890, amt: 2181 },
-    { name: 'Sat', studytime: 2390, amt: 2500 },
-    { name: 'Sun', studytime: 3490,  amt: 2100 },
+    { name: 'Mon', studytime: 14 },
+    { name: 'Tue', studytime: 30 },
+    { name: 'Wed', studytime: 15},
+    { name: 'Thur', studytime: 27},
+    { name: 'Fri', studytime: 18},
+    { name: 'Sat', studytime: 23 },
+    { name: 'Sun', studytime: 34 },
   ];
   
   function BarGraph() {
@@ -118,10 +118,10 @@ const bargraph_data = [
 
 
   const piechart_data = [
-    { name: 'Group A', value: 400 },
-    { name: 'Group B', value: 300 },
-    { name: 'Group C', value: 300 },
-    { name: 'Group D', value: 200 },
+    { name: '327', value: 40 },
+    { name: '491B', value: 30 },
+    { name: '429', value: 30 },
+    { name: '456', value: 57 },
   ];
   
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
