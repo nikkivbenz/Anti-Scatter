@@ -48,14 +48,6 @@ function Settings() {
   return (
     <Row> 
         <Tabs defaultActiveKey="profile" id="justify-tab-example" className="mb-3" justify>
-            <Tab eventKey="home" title="Home">
-                {/* Privacy settings or other content */}
-                have privacy settings toggled here 
-            </Tab>
-            <Tab eventKey="profile" title="Profile">
-                {/* Profile settings */}
-                Have email, name, notifications, email notifications allow to be edited here
-            </Tab>
             <Tab eventKey="appearance" title="Appearance">
                 <div>
                     <h3>Current Theme: {theme === 'dark' ? 'Dark' : 'Light'}</h3>

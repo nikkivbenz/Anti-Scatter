@@ -28,7 +28,7 @@ function FAQ() {
                   navigate("/login");
               }
 
-              navigate('/settings')
+              navigate('/FAQ')
           } catch (error) {
               console.error("Error verifying cookie:", error);
               navigate("/login");

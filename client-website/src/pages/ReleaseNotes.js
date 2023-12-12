@@ -26,7 +26,7 @@ const ReleaseNotes = () => {
                   navigate("/login");
               }
 
-              navigate('/settings')
+              navigate('/ReleaseNotes')
           } catch (error) {
               console.error("Error verifying cookie:", error);
               navigate("/login");
