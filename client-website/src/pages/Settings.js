@@ -47,7 +47,7 @@ function Settings() {
   
   return (
     <Row> 
-        <Tabs defaultActiveKey="profile" id="justify-tab-example" className="mb-3" justify>
+        <Tabs defaultActiveKey="apperance" id="justify-tab-example" className="mb-3" justify>
             <Tab eventKey="appearance" title="Appearance">
                 <div>
                     <h3>Current Theme: {theme === 'dark' ? 'Dark' : 'Light'}</h3>
