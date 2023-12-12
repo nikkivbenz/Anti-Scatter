@@ -34,14 +34,7 @@ export default function NavigationBar() {
           </Container>
         </Navbar>
 
-        <Navbar className="bg-body-tertiary">
-          <Container>
-            <Nav.Link as={Link} to="/Allowlist" className="nav-link">
-              Allowlist
-            </Nav.Link>
-          </Container>
-        </Navbar>
-
+      
         <Navbar className="bg-body-tertiary">
           <Container>
             <Nav.Link as={Link} to="/BlockByTheme" className="nav-link">
