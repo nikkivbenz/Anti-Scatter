@@ -34,7 +34,7 @@ const Calendar = () => {
                     navigate("/login");
                 }
   
-                navigate('/settings')
+                navigate('/Calendar')
             } catch (error) {
                 console.error("Error verifying cookie:", error);
                 navigate("/login");
