@@ -1,58 +1,56 @@
 // content.js
 
-
 var currentURL = window.location.href;
 var url = new URL(currentURL);
 var domain = url.hostname;
 chrome.runtime.sendMessage({ blockScheduleUpdate: true });
 
-
-let WEBSITE = "boisterous-biscotti-c124c9";
-
-
+let WEBSITE = "boisterous-biscotti-c124c9.netlify.app";
 
 if (window.location.hostname === WEBSITE) {
   console.log("we here");
   if (localStorage.getItem("token")) {
     // Send runtime message with the token
-    
-    chrome.runtime.sendMessage({ token: localStorage.getItem("token") }, console.log("token sent"));
+
+    chrome.runtime.sendMessage(
+      { token: localStorage.getItem("token") },
+      console.log("token sent")
+    );
     // ...
     let bs = localStorage.getItem("blockedSites");
     bs = JSON.parse(bs);
     console.log(bs);
     // Send runtime message with the contents of localStorage["blockedSites"]
-    chrome.runtime.sendMessage({ blockedSites:bs }, console.log("sites sent"));
+    chrome.runtime.sendMessage({ blockedSites: bs }, console.log("sites sent"));
 
     // ...
   }
 } else {
- console.log("we not here");
- var currentURL = window.location.href;
- var url = new URL(currentURL);
- 
- // Extract the domain from the URL
- var currentDomain = url.hostname;
- currentDomain = currentDomain.replace("www.", "");
-  console.log("current domain is:",currentDomain);
+  console.log("we not here");
+  var currentURL = window.location.href;
+  var url = new URL(currentURL);
 
-  chrome.storage.local.get(["blockedSites"], function(result) {
+  // Extract the domain from the URL
+  var currentDomain = url.hostname;
+  currentDomain = currentDomain.replace("www.", "");
+  console.log("current domain is:", currentDomain);
+
+  chrome.storage.local.get(["blockedSites"], function (result) {
     var sites = result.blockedSites || [];
-    console.log("sites are:",sites);
+    console.log("sites are:", sites);
     // Check each site in blockedSites
     for (let site of sites) {
       // Extract the domain from the site URL
       let siteDomain = new URL(site).hostname;
       siteDomain = siteDomain.replace("%2A.", "");
-      console.log("site domain is:",siteDomain);
+      console.log("site domain is:", siteDomain);
       // If the current domain matches the site domain, render block.html
       if (siteDomain === currentDomain) {
-        blackout()
+        blackout();
         break;
       }
     }
   });
-
 }
 
 /*------------------------------------------------ User Authentication -----------------------------------------------*/
@@ -92,8 +90,6 @@ if (window.location.hostname === WEBSITE) {
 //   .catch((error) => {
 //     console.error(error);
 //   });
-
-
 
 /*---------------------------------------------------------------------------------------------------------------------*/
 
